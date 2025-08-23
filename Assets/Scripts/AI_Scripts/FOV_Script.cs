@@ -2,16 +2,17 @@ using UnityEngine;
 
 public class FOV_Script : MonoBehaviour
 {
+    
     [Header("Raycast")]
     [SerializeField] private float _maxDistance;
     [SerializeField] private Transform _raycastStartPosition;
     private RaycastHit hit;
     
-
+    
     [Header("ScriptReference")]
     public AI_Controller _aiData;
 
-    void Update()
+    public void Update()
     {
         // SendRaycast();
     }
@@ -37,6 +38,7 @@ public class FOV_Script : MonoBehaviour
 
     #region  Functions
 
+    
     void SendRaycast()
     {
         if(!_aiData._isPlayerIn){ return; }                   // Eğer karakter fov içerisinde değilse döngüyü kır.
@@ -51,6 +53,7 @@ public class FOV_Script : MonoBehaviour
             }
         }
     }
+    
     
     #endregion
 }

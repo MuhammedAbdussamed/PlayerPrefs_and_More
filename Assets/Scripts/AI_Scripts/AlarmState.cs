@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class AlarmState : IState
@@ -14,6 +15,8 @@ public class AlarmState : IState
 
     public void Update(AI_Controller _aiData)
     {
+        AlarmMode(_aiData);
+
         if (!_aiData._alarmMode)
         {
             _aiData.ChangeState(_aiData._patrolState);
@@ -22,6 +25,12 @@ public class AlarmState : IState
         {
             _aiData.ChangeState(_aiData._followState);
         }
+    }
+
+    void AlarmMode(AI_Controller _aiData)
+    {
+        _aiData._transform.LookAt(_aiData._player.position);
+        _aiData._botAI.SetDestination(_aiData._player.position);
     }
 
 }
