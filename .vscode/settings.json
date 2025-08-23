@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "PlayerPrefs_More.sln"
+    "dotnet.defaultSolution": "PlayerPrefs_and_More.sln"
 }
