@@ -18,6 +18,10 @@ public class WalkState : IState_Player
         {
             _playerData.ChangeState(_playerData._idleState);    // IdleState'e geç
         }
+        else if (_playerData._isFalling)                        // Eğer karakter düşüyorsa
+        {
+            _playerData.ChangeState(_playerData._fallState);    // Düşme state'ine geç
+        }
     }
 
     void Run(PlayerController _playerData)

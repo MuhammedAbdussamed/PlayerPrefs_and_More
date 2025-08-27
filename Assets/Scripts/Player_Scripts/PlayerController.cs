@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("PlayerProperties")]
     public float _speed;
+    public float _fallSpeed;
     public float _coin;
 
     [Header("InputReferences")]
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
     // State Bools
     [HideInInspector] public bool _isGrounded;
     [HideInInspector] public bool _isWalking;
+    [HideInInspector] public bool _isFalling;
 
     // Movement Variable
     [HideInInspector] public Vector2 _moveDirection;
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
     // States
     [HideInInspector] public IState_Player _idleState;
     [HideInInspector] public IState_Player _walkState;
+    [HideInInspector] public IState_Player _fallState;
     [HideInInspector] public IState_Player _currentState;
 
     private void Awake()
@@ -39,9 +42,11 @@ public class PlayerController : MonoBehaviour
         {                                              //
             Destroy(gameObject);                        //      O zaman bunu yok et.
         }                                              //
-                                                      
+
         _idleState = new IdleState();
         _walkState = new WalkState();
+        _fallState = new FallState();
+
         _currentState = _idleState;
 
         _rb = GetComponent<Rigidbody>();
@@ -49,7 +54,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        
+
         _inputs.Enable();
     }
 
@@ -57,11 +62,12 @@ public class PlayerController : MonoBehaviour
     {
         /* Transition */
         TransitionRunState();
+        TransitionFallState();
 
         /* Inputs */
         _moveDirection = _inputs.FindActionMap("Movement").FindAction("Move").ReadValue<Vector2>();      // Inputtan gelen Vector2 değerini _moveDirection değişkenine ata.
         _interactionInput = _inputs.FindActionMap("Interaction").FindAction("Interact").triggered;       // Inputtan gelen girdiyi _interactionInputı true çevirmek için kullan.
-        
+
         _currentState.Update(this);                                                                      // Güncel State'in update'inde ne varsa onu yap.
     }
 
@@ -94,6 +100,18 @@ public class PlayerController : MonoBehaviour
         else
         {
             _isWalking = false;
+        }
+    }
+
+    void TransitionFallState()
+    {
+        if (_rb.linearVelocity.y < 0f)
+        {
+            _isFalling = true;
+        }
+        else if (_isGrounded)
+        {
+            _isFalling = false;
         }
     }
 

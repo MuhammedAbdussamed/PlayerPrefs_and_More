@@ -14,7 +14,11 @@ public class IdleState : IState_Player
     {
         if (_playerData._isWalking)                             // Karakter yürüyorsa 
         {
-            _playerData.ChangeState(_playerData._walkState);    // Yürüme State'ine geç.
+            _playerData.ChangeState(_playerData._walkState);        // Yürüme State'ine geç.
+        }
+        else if (_playerData._isFalling)                        // Karakter düşüyorsa
+        {
+            _playerData.ChangeState(_playerData._fallState);        // Düşme state'ine geç
         }
     }  
 }
