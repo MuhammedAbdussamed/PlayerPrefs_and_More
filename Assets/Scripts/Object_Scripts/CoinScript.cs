@@ -8,7 +8,12 @@ public class CoinScript : MonoBehaviour
     [SerializeField] private AudioClip _coinSound;
 
     [Header("ScriptReferences")]
-    [SerializeField] private PlayerController _playerData;
+    private PlayerController _playerData;
+
+    void Start()
+    {
+        _playerData = PlayerController.Instance;
+    }
     
     void OnTriggerEnter(Collider col)
     {
@@ -21,7 +26,9 @@ public class CoinScript : MonoBehaviour
         {
             _playerData._coin++;
             _audioSource.PlayOneShot(_coinSound);
+
             yield return new WaitForSeconds(0.2f);
+            
             Destroy(gameObject);
         }
     }

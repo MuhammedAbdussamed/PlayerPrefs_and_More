@@ -2,15 +2,9 @@ using UnityEngine;
 
 public class FollowState : IState
 {
-    public void Enter(AI_Controller _aiData)
-    {
+    public void Enter(AI_Controller _aiData){}
 
-    }
-
-    public void Exit(AI_Controller _aiData)
-    {
-
-    }
+    public void Exit(AI_Controller _aiData){}
 
     public void Update(AI_Controller _aiData)
     {
@@ -28,6 +22,7 @@ public class FollowState : IState
 
     void Follow(AI_Controller _aiData)
     {
-        _aiData._botAI.SetDestination(_aiData._player.position);
+        _aiData._botAI.SetDestination(_aiData._playerScript.transform.position);    // Karakterin pozisyonunu hedef olarak ayarla.
     }
+    
 }

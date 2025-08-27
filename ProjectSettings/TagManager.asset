@@ -8,6 +8,7 @@ TagManager:
   - PatrolPoint2
   - PatrolPoint3
   - PatrolPoint0
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -19,11 +20,11 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Ground
   - IgnoreNavMesh
-  - 
-  - 
-  - 
+  - Characters
+  - Wall
+  - Obstacle
   - 
   - 
   - 

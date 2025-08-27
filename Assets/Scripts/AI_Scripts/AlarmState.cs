@@ -3,21 +3,15 @@ using UnityEngine;
 
 public class AlarmState : IState
 {
-    public void Enter(AI_Controller _aiData)
-    {
-        Debug.Log("Gel buraya!!!");
-    }
+    public void Enter(AI_Controller _aiData){}
 
-    public void Exit(AI_Controller _aiData)
-    {
-
-    }
+    public void Exit(AI_Controller _aiData){}
 
     public void Update(AI_Controller _aiData)
     {
         AlarmMode(_aiData);
 
-        if (!_aiData._alarmMode)
+        if (!_aiData._alarmMode)                        
         {
             _aiData.ChangeState(_aiData._patrolState);
         }
@@ -29,8 +23,8 @@ public class AlarmState : IState
 
     void AlarmMode(AI_Controller _aiData)
     {
-        _aiData._transform.LookAt(_aiData._player.position);
-        _aiData._botAI.SetDestination(_aiData._player.position);
+        _aiData._transform.LookAt(_aiData._playerScript.transform.position);        // Karakterin pozisyonuna bak.
+        _aiData._botAI.SetDestination(_aiData._playerScript.transform.position);    // Karakterin pozisyonunu hedef olarak belirle.
     }
 
 }

@@ -5,44 +5,50 @@ using UnityEngine.SceneManagement;
 
 public class Portal : MonoBehaviour
 {
-    [SerializeField] private InputActionReference _interactionInputs;
-    [SerializeField] private PlayerController _playerData;
+    [Header("TextReference")]
     [SerializeField] private TextMeshProUGUI _textInteract;
-    private bool _letsGo;
+
+    [Header("ScriptReferences")]
+    private PlayerController _playerData;
+
+    [Header("Bools")]
+    private bool _isPlayerIn;
 
     void Start()
     {
-        _interactionInputs.action.Enable();
+        _playerData = PlayerController.Instance;
     }
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.CompareTag("Player"))
+        if (col.CompareTag("Player"))                   // Player tag'li bir obje collidera girerse devam et...
         {
-            _textInteract.gameObject.SetActive(true);
-            _letsGo = true;
+            _textInteract.gameObject.SetActive(true);   // Etkileşim yazisini aktif et. 
+            _isPlayerIn = true;                         // Karakter içerde mi değişkenini true çevir.
         }
     }
 
-    void OnTriggerExit(Collider col)
+    void OnTriggerExit(Collider col)                    
     {
-        if (col.CompareTag("Player"))
+        if (col.CompareTag("Player"))                   // Player tag'li bir obje colliderdan çıkarsa devam et...
         {
-            _textInteract.gameObject.SetActive(false);
-            _letsGo = false;
+            _textInteract.gameObject.SetActive(false);  // Etkileşim yazısını deaktif et.
+            _isPlayerIn = false;                        // Karakter içerde mi değişkenini false çevir
         }
     }
 
     void Update()
     {
-        ChangeScene(14);
+        ChangeSceneSaveCoin(8);
     }
 
-    void ChangeScene(int coinNumber)
+    void ChangeSceneSaveCoin(int coinNumber)
     {
-        if (_playerData._coin >= coinNumber && _interactionInputs.action.triggered && _letsGo)
+        if (_playerData._coin >= coinNumber && _playerData._interactionInput && _isPlayerIn) // Coin sayısı yeterince fazlaysa , etkileşim tuşuna basıldıysa ve karakter içerdeyse devam et...
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);   // Bu sahnenin indexini al ona 1 ekle ve sahneyi yükle.
+            PlayerPrefs.SetFloat("Coins", _playerData._coin);                       // Oyuncuda bulunan coin sayısını "Coins" başlığı altına kaydet.
+            PlayerPrefs.Save();
         }
     }
 
