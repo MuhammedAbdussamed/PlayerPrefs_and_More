@@ -222,7 +222,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.5, y: 1, z: 1.4}
+  m_Size: {x: 4, y: 1, z: 1.4}
   m_Center: {x: -0.061452866, y: 0, z: 0.1876719}
 --- !u!114 &4306051577895230587
 MonoBehaviour:
@@ -236,7 +236,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acb9514b20148284a836da0888f0e53f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _botTransform: {fileID: 614251357242925734}
   _viewDistance: 20
   _raycastLayers:
     serializedVersion: 2
@@ -322,6 +321,7 @@ GameObject:
   - component: {fileID: 8368255348457168599}
   - component: {fileID: 817350459794835729}
   - component: {fileID: 4741124303092731495}
+  - component: {fileID: 9068289786913707654}
   - component: {fileID: 1499106258855460090}
   m_Layer: 11
   m_Name: Bot
@@ -445,6 +445,33 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!54 &9068289786913707654
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8224524081067608969}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &1499106258855460090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,12 +486,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _botAI: {fileID: 4741124303092731495}
   _transform: {fileID: 614251357242925734}
-  _player: {fileID: 0}
   _pointTransforms:
   - {fileID: 517457264817683375}
   - {fileID: 5887790869891891523}
   - {fileID: 1674161471390589057}
   - {fileID: 8250080826526564267}
+  _lookAtDelay: {x: 0, y: 0.035, z: 0}
+  _playerScript: {fileID: 0}
   _distances:
   - 0
   - 0
@@ -474,7 +502,6 @@ MonoBehaviour:
   _pointBools: 00000000
   _isPlayerIn: 0
   _isFollowing: 0
-  _lookAtDelay: {x: 0, y: 0.035, z: 0}
 --- !u!1 &8784862490738906598
 GameObject:
   m_ObjectHideFlags: 0

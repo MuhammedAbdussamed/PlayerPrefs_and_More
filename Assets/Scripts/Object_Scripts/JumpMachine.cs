@@ -5,11 +5,11 @@ public class JumpMachine : MonoBehaviour
     [Header("Jump Value")]
     [SerializeField] private float _jumpPower;
 
-    void OnCollisionEnter(Collision col)
+    void OnTriggerEnter(Collider col)
     {
-        if (col.collider.CompareTag("Player"))
+        if (col.CompareTag("Player"))
         {
-            Rigidbody _playerRigidbody = col.collider.GetComponent<Rigidbody>();
+            Rigidbody _playerRigidbody = col.GetComponent<Rigidbody>();
             _playerRigidbody.AddForce(Vector3.up * _jumpPower, ForceMode.Impulse);
         }
     }
