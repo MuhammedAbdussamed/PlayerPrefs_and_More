@@ -9,7 +9,7 @@ public class FollowState : IState
     public void Update(AI_Controller _aiData)
     {
         Follow(_aiData);
-        
+
         if (!_aiData._isFollowing && !_aiData._alarmMode)
         {
             _aiData.ChangeState(_aiData._patrolState);
@@ -17,6 +17,10 @@ public class FollowState : IState
         else if (!_aiData._isFollowing && _aiData._alarmMode)
         {
             _aiData.ChangeState(_aiData._alarmState);
+        }
+        else if (_aiData._isDeath)
+        {
+            _aiData.ChangeState(_aiData._deathState);
         }
     }
 

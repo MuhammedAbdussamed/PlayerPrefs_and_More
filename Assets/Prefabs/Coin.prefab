@@ -221,6 +221,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ea5d385dc9ade4a9c5f293b514ebec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _turnSpeed: 0.03
   _audioSource: {fileID: 3867116787145411632}
   _coinSound: {fileID: 8300000, guid: e255751c58653de4fbc387f0ce88aca3, type: 3}
-  _playerData: {fileID: 0}

@@ -22,6 +22,10 @@ public class PatrolState : IState
         {
             _aiData.ChangeState(_aiData._followState);
         }
+        else if (_aiData._isDeath)
+        {
+            _aiData.ChangeState(_aiData._deathState);
+        }
     }
 
     void Patrol(AI_Controller _aiData)

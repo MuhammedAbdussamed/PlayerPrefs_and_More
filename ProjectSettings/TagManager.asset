@@ -9,6 +9,8 @@ TagManager:
   - PatrolPoint3
   - PatrolPoint0
   - Ground
+  - AI_Bot
+  - Wall
   layers:
   - Default
   - TransparentFX

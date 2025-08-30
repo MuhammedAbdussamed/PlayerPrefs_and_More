@@ -5,9 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class AI_Controller : MonoBehaviour
 {
-    [Header("Bot Components")]
+    [Header("Bot Properties")]
+    public float _respawnTime;
     public NavMeshAgent _botAI;
     public Transform _transform;
+    public GameObject _botNoise;
 
     [Header("Transform References")]
     public Transform[] _pointTransforms = new Transform[4];
@@ -22,22 +24,26 @@ public class AI_Controller : MonoBehaviour
     [HideInInspector] public float[] _distances = new float[4];
 
     [Header("Bools")]
-    [HideInInspector] public bool _alarmMode;
     [HideInInspector] public bool[] _pointBools = new bool[4];
+    [HideInInspector] public bool _alarmMode;
     [HideInInspector] public bool _isPlayerIn;
     [HideInInspector] public bool _isFollowing;
+    [HideInInspector] public bool _isDeath;
 
     [Header("States")]
     [HideInInspector] public IState _currentState;
     [HideInInspector] public IState _patrolState;
     [HideInInspector] public IState _alarmState;
     [HideInInspector] public IState _followState;
+    [HideInInspector] public IState _deathState;
+    
 
     void Awake()
     {
         _patrolState = new PatrolState();
         _alarmState = new AlarmState();
         _followState = new FollowState();
+        _deathState = new DeathState();
 
         _currentState = _patrolState;
     }

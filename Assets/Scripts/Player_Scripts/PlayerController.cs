@@ -1,6 +1,8 @@
 using System;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,8 +12,9 @@ public class PlayerController : MonoBehaviour
     public float _speed;
     public float _fallSpeed;
     public float _coin;
+    [HideInInspector] public float _necesserrayCoin;                                     // Bölümü geçmek için gerekli olan coin sayısı.
 
-    [Header("InputReferences")]
+    [Header("InputReferences")] 
     [SerializeField] private InputActionAsset _inputs;
 
     // Components
@@ -54,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-
+        SetNecesserrayCoin();
         _inputs.Enable();
     }
 
@@ -112,6 +115,26 @@ public class PlayerController : MonoBehaviour
         else if (_isGrounded)
         {
             _isFalling = false;
+        }
+    }
+
+    void SetNecesserrayCoin()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            _necesserrayCoin = 4;
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            _necesserrayCoin = 10;
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            _necesserrayCoin = 15;
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            _necesserrayCoin = 20;
         }
     }
 

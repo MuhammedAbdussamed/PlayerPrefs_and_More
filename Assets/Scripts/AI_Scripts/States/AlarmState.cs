@@ -11,13 +11,17 @@ public class AlarmState : IState
     {
         AlarmMode(_aiData);
 
-        if (!_aiData._alarmMode)                        
+        if (!_aiData._alarmMode)
         {
             _aiData.ChangeState(_aiData._patrolState);
         }
         else if (_aiData._isFollowing)
         {
             _aiData.ChangeState(_aiData._followState);
+        }
+        else if (_aiData._isDeath)
+        {
+            _aiData.ChangeState(_aiData._deathState);
         }
     }
 

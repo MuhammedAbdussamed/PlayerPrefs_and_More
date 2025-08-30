@@ -12,9 +12,9 @@ public class Thorns : MonoBehaviour
     private bool _isMoving;
 
     [Header("Variable")]
-    [SerializeField] private float _speed;
+    [SerializeField] private float _speed;             
     private int _targetPointIndex;
-    
+
     void Update()
     {
         CheckPosition();
@@ -25,11 +25,15 @@ public class Thorns : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision col)
+    void OnTriggerEnter(Collider col)
     {
-        col.gameObject.SetActive(false);
 
-        if (col.collider.CompareTag("Player"))
+        if (col.CompareTag("AI_Bot"))
+        {
+            KillTheBot(col);
+        }
+        
+        if (col.CompareTag("Player"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
@@ -61,6 +65,15 @@ public class Thorns : MonoBehaviour
         {
             _targetPointIndex = 0;    // Hedef pointIndexini 0 olarak ayarla.
         }
+    }
+
+    void KillTheBot(Collider col)
+    {
+        AI_Controller _aiScript;        // Boş bir değişken. Bot bu objeye çarparsa botta ki scripti alacak.
+
+        _aiScript = col.GetComponent<AI_Controller>();
+        
+        _aiScript._isDeath = true;
     }
     
     #endregion

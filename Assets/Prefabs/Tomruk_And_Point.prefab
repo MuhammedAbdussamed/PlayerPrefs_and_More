@@ -104,6 +104,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4444125157318251642}
     m_Modifications:
+    - target: {fileID: 2127908575738870442, guid: 845983bf6609cf440b9acaf76f453272, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2451754273888794131, guid: 845983bf6609cf440b9acaf76f453272, type: 3}
       propertyPath: m_Name
       value: Tomruk

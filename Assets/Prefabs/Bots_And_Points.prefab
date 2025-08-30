@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 207397280326749833}
   - component: {fileID: 407951968343173303}
   - component: {fileID: 6518209354843701086}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: noise
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 5718579041180468012}
   - component: {fileID: 5786787399121662588}
   - component: {fileID: 4306051577895230587}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: FOV
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,9 +323,9 @@ GameObject:
   - component: {fileID: 4741124303092731495}
   - component: {fileID: 9068289786913707654}
   - component: {fileID: 1499106258855460090}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Bot
-  m_TagString: Untagged
+  m_TagString: AI_Bot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -484,8 +484,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 718f8631b9326844f8ecff4e49c358f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _respawnTime: 0
   _botAI: {fileID: 4741124303092731495}
   _transform: {fileID: 614251357242925734}
+  _botNoise: {fileID: 4083440786348939718}
   _pointTransforms:
   - {fileID: 517457264817683375}
   - {fileID: 5887790869891891523}
@@ -498,10 +500,11 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  _alarmMode: 0
   _pointBools: 00000000
+  _alarmMode: 0
   _isPlayerIn: 0
   _isFollowing: 0
+  _isDeath: 0
 --- !u!1 &8784862490738906598
 GameObject:
   m_ObjectHideFlags: 0
