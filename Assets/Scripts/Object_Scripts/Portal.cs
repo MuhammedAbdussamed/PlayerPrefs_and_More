@@ -9,31 +9,31 @@ public class Portal : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _textInteract;
 
     [Header("ScriptReferences")]
-    private PlayerController _playerData;
+    private PlayerController _playerScript;
 
     [Header("Bools")]
     private bool _isPlayerIn;
 
     void Start()
     {
-        _playerData = PlayerController.Instance;
+        _playerScript = PlayerController.Instance;
     }
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.CompareTag("Player"))                   // Player tag'li bir obje collidera girerse devam et...
+        if (col.CompareTag("Player") || col.CompareTag("Invisible"))                   // Player tag'li bir obje collidera girerse devam et...
         {
-            _textInteract.gameObject.SetActive(true);   // Etkileşim yazisini aktif et. 
-            _isPlayerIn = true;                         // Karakter içerde mi değişkenini true çevir.
+            _textInteract.gameObject.SetActive(true);                                  // Etkileşim yazisini aktif et. 
+            _isPlayerIn = true;                                                        // Karakter içerde mi değişkenini true çevir.
         }
     }
 
     void OnTriggerExit(Collider col)                    
     {
-        if (col.CompareTag("Player"))                   // Player tag'li bir obje colliderdan çıkarsa devam et...
+        if (col.CompareTag("Player") || col.CompareTag("Invisible"))                   // Player tag'li bir obje colliderdan çıkarsa devam et...
         {
-            _textInteract.gameObject.SetActive(false);  // Etkileşim yazısını deaktif et.
-            _isPlayerIn = false;                        // Karakter içerde mi değişkenini false çevir
+            _textInteract.gameObject.SetActive(false);                                 // Etkileşim yazısını deaktif et.
+            _isPlayerIn = false;                                                       // Karakter içerde mi değişkenini false çevir
         }
     }
 
@@ -44,10 +44,10 @@ public class Portal : MonoBehaviour
 
     void ChangeSceneSaveCoin(int coinNumber)
     {
-        if (_playerData._coin >= coinNumber && _playerData._interactionInput && _isPlayerIn) // Coin sayısı yeterince fazlaysa , etkileşim tuşuna basıldıysa ve karakter içerdeyse devam et...
+        if (_playerScript._coin >= coinNumber && _playerScript._interactionInput && _isPlayerIn) // Coin sayısı yeterince fazlaysa , etkileşim tuşuna basıldıysa ve karakter içerdeyse devam et...
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);   // Bu sahnenin indexini al ona 1 ekle ve sahneyi yükle.
-            PlayerPrefs.SetFloat("Coins", _playerData._coin);                       // Oyuncuda bulunan coin sayısını "Coins" başlığı altına kaydet.
+            PlayerPrefs.SetFloat("Coins", _playerScript._coin);                     // Oyuncuda bulunan coin sayısını "Coins" başlığı altına kaydet.
             PlayerPrefs.Save();
         }
     }

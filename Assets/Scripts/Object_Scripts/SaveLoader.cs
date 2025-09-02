@@ -10,7 +10,7 @@ public class SaveLoader : MonoBehaviour
     {
         _playerScript = PlayerController.Instance;
 
-        _playerScript._coin = PlayerPrefs.GetFloat("Coins", 0f);    // Karakterin coin sayısını "Coins" başlığı altına kaydet.
+        _playerScript._coin = PlayerPrefs.GetFloat("Coins", 0f);        // Karakterin coin sayısını "Coins" başlığı altına kaydet.
 
         StartCoin();
     }

@@ -7,10 +7,7 @@ public class JumpMachine : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.CompareTag("Player"))
-        {
-            Rigidbody _playerRigidbody = col.GetComponent<Rigidbody>();
-            _playerRigidbody.AddForce(Vector3.up * _jumpPower, ForceMode.Impulse);
-        }
+        Rigidbody _playerRigidbody = col.GetComponent<Rigidbody>();
+        _playerRigidbody.AddForce(Vector3.up * _jumpPower, ForceMode.Impulse);
     }
 }

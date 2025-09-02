@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1961390109049145197}
   m_Layer: 12
   m_Name: Player
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,12 +130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f46689055122fd74ca03dd2050cc5312, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _layerMask:
+  _raycastLayers:
     serializedVersion: 2
-    m_Bits: 1024
-  _groundSetOff: {x: 0, y: 0, z: 0}
-  _playerScript: {fileID: 7611457747511852393}
-  _playerTransform: {fileID: 5464408335776361352}
+    m_Bits: 0
 --- !u!1 &8070815187574940560
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,12 +230,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 3
-  _jumpPower: 5
+  _fallSpeed: 0
   _coin: 0
+  _necesserrayCoin: 0
   _inputs: {fileID: -944628639613478452, guid: 30198e9f86ee28741b60121a6010d5cb, type: 3}
   _rb: {fileID: 7159594476829685030}
   _isGrounded: 0
   _isWalking: 0
-  _isJumping: 0
+  _isFalling: 0
+  _isDestroying: 0
+  _isInvisible: 0
   _moveDirection: {x: 0, y: 0}
-  _jumpDirection: 0
+  _interactionInput: 0

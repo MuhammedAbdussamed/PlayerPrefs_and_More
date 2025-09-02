@@ -2,23 +2,23 @@ using UnityEngine;
 
 public class IdleState : IState_Player
 {
-    public void Enter(PlayerController _playerData){}
+    public void Enter(PlayerController _playerScript){}
     
     /*---------------------------------------------*/
 
-    public void Exit(PlayerController _playerData){}
+    public void Exit(PlayerController _playerScript){}
 
     /*---------------------------------------------*/
 
-    public void Update(PlayerController _playerData)
+    public void Update(PlayerController _playerScript)
     {
-        if (_playerData._isWalking)                             // Karakter yürüyorsa 
+        if (_playerScript._isWalking)                             // Karakter yürüyorsa 
         {
-            _playerData.ChangeState(_playerData._walkState);        // Yürüme State'ine geç.
+            _playerScript.ChangeState(_playerScript._walkState);        // Yürüme State'ine geç.
         }
-        else if (_playerData._isFalling)                        // Karakter düşüyorsa
+        else if (_playerScript._isFalling)                        // Karakter düşüyorsa
         {
-            _playerData.ChangeState(_playerData._fallState);        // Düşme state'ine geç
+            _playerScript.ChangeState(_playerScript._fallState);        // Düşme state'ine geç
         }
     }  
 }

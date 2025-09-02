@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7661209307368778931}
   - component: {fileID: 5322479179352825271}
   - component: {fileID: 5998238228095090499}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: SecurityCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 5481040975764449099}
   - component: {fileID: 9184662120077731227}
   - component: {fileID: 7020544779263650206}
-  m_Layer: 11
+  m_Layer: 15
   m_Name: FOV
   m_TagString: Untagged
   m_Icon: {fileID: 0}

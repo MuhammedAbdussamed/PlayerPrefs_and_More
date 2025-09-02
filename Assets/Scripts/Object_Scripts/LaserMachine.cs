@@ -37,7 +37,7 @@ public class LaserMachine : MonoBehaviour
         {
             Debug.DrawRay(transform.position, _direction * 10f, Color.green);                                         // Işını yeşil renkte görselleştir. 
 
-            if (_hit.collider.CompareTag("Player"))                                                                     // Eğer çarpılan objenin tag'i Player ise devam et...
+            if (_hit.collider.CompareTag("Player") || _hit.collider.CompareTag("Invisible"))                        // Eğer çarpılan objenin tag'i Player ise devam et...
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);                                           // Sahneyi tekrar yükle.
             }

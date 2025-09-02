@@ -109,7 +109,12 @@ public class AI_Controller : MonoBehaviour
 
     void KillPlayer(Collision col)
     {
-        if (col.collider.CompareTag("Player"))                                                      // Eğer Player tag'li bir obje ile çarpışırsa devam et...
+        if (col.collider.CompareTag("Player") && _playerScript._isDestroying)
+        {
+            _isDeath = true;
+        }
+
+        else if (col.collider.CompareTag("Player") && !_playerScript._isDestroying)                 // Eğer Player tag'li bir obje ile çarpışırsa devam et...
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);                       // Sahneyi tekrar yükle.                                 
         }

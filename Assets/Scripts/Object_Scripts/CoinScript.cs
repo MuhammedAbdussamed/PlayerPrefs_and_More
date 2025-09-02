@@ -12,14 +12,14 @@ public class CoinScript : MonoBehaviour
     [SerializeField] private AudioClip _coinSound;
 
     [Header("ScriptReferences")]
-    private PlayerController _playerData;
+    private PlayerController _playerScript;
 
     [Header("Variables")]
     private bool _isTurning;
 
     void Start()
     {
-        _playerData = PlayerController.Instance;
+        _playerScript = PlayerController.Instance;
     }
 
     void OnTriggerEnter(Collider col)
@@ -34,9 +34,9 @@ public class CoinScript : MonoBehaviour
 
     IEnumerator CoinFunction(Collider col)
     {
-        if (col.CompareTag("Player"))
+        if (col.CompareTag("Player") || col.CompareTag("Invisible"))
         {
-            _playerData._coin++;
+            _playerScript._coin++;
             _audioSource.PlayOneShot(_coinSound);
 
             yield return new WaitForSeconds(0.2f);

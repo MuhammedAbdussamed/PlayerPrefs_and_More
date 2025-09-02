@@ -33,7 +33,7 @@ public class Thorns : MonoBehaviour
             KillTheBot(col);
         }
         
-        if (col.CompareTag("Player"))
+        if (col.CompareTag("Player") || col.CompareTag("Invisible"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }

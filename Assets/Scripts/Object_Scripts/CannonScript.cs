@@ -27,9 +27,9 @@ public class CannonScript : MonoBehaviour
 
         _bullet.position += new Vector3(_distance.x, 0f, _distance.z) * _bulletSpeed * Time.deltaTime; // Merminin pozisyonunu güncelle.
 
-        Vector3 newPosition = _bullet.position;
-        newPosition.y = _posY;
-        _bullet.position = newPosition;
+        Vector3 newPosition = _bullet.position;     //
+        newPosition.y = _posY;                      // Merminin y ekseninde hareket etmesini sağla.
+        _bullet.position = newPosition;             // 
     }
 
 }

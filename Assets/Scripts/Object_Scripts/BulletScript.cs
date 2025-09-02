@@ -5,7 +5,7 @@ public class BulletScript : MonoBehaviour
 {
     void OnCollisionEnter(Collision col)
     {
-        if (col.collider.CompareTag("Player"))
+        if (col.collider.CompareTag("Player") || col.collider.CompareTag("Invisible"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
