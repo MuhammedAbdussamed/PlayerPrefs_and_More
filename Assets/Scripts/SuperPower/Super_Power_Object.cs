@@ -63,9 +63,13 @@ public class Super_Power_Object : MonoBehaviour
     {
         _playerScript._speed += _speedPower._speedUpValue;          // Artık nadirlik seçildi ve değişkenler ona göre ayarlandi. Hız değişkenini uygula.
 
+        _playerScript._speedEffect.gameObject.SetActive(true);
+
         yield return new WaitForSeconds(_speedPower._durationTime); // Süper gücün etki süresi kadar bekle
 
         _playerScript._speed -= _speedPower._speedUpValue;          // Hız değişkenini geri çek . ( Etkiyi bitir )
+
+        _playerScript._speedEffect.gameObject.SetActive(false);
 
         _useSpeedUp = false;
     }
@@ -89,9 +93,13 @@ public class Super_Power_Object : MonoBehaviour
     {
         _playerScript._isDestroying = true;
 
+        _playerScript._destroyEffect.gameObject.SetActive(true);
+
         yield return new WaitForSeconds(_destroyPower._durationTime);
 
         _playerScript._isDestroying = false;
+
+        _playerScript._destroyEffect.gameObject.SetActive(false);
 
         _useDestroy = false;
     }

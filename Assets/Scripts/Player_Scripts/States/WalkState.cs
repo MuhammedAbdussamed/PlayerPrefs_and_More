@@ -27,8 +27,8 @@ public class WalkState : IState_Player
     void Run(PlayerController _playerScript)
     {
         Vector3 _moveInput = new Vector3(_playerScript._moveDirection.x, 0f, _playerScript._moveDirection.y) * _playerScript._speed;  // _moveInput değişkenine input girdilerini ata ve speed değişkeni ile çarp.
-        Vector3 move = _playerScript.transform.TransformDirection(_moveInput);                                                    // Hareketin dünyaya göre değil de local pozisyona göre yapılmasını sağlar.
-        move.y = _playerScript._rb.linearVelocity.y;                                                                              // y edğerini değiştirmiyoruz çünkü sadece yürüyecek.
+        Vector3 move = _playerScript.transform.TransformDirection(_moveInput);                                                        // Hareketin dünyaya göre değil de local pozisyona göre yapılmasını sağlar.
+        move.y = _playerScript._rb.linearVelocity.y;                                                                                  // y değerini değiştirmiyoruz çünkü sadece yürüyecek.
         _playerScript._rb.linearVelocity = move;                                                                                  
     }
 }

@@ -128,6 +128,76 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Look",
+            "id": "77b1c127-5081-4bf1-824c-f86d0e728014",
+            "actions": [
+                {
+                    "name": "LookRight",
+                    "type": "Value",
+                    "id": "4d0170fe-29d2-467a-bd46-de41427b2804",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "LookLeft",
+                    "type": "Value",
+                    "id": "bf5d617c-84ce-44c6-a52a-d95b4231cfaf",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "2D Vector",
+                    "id": "2e8c3264-456e-4706-9552-306383a99be2",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LookRight",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "right",
+                    "id": "e781a826-c092-439e-8031-01322e483385",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LookRight",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "5a55bf54-4aa0-4ebc-8a58-c65d1a2f25fd",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LookLeft",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "right",
+                    "id": "13df07f3-786f-4ae3-9ac6-ef1d646064fd",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LookLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
         }
     ],
     "controlSchemes": []
