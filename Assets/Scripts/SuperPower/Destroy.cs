@@ -9,7 +9,7 @@ public class Destroy : Base_Class
         switch (_rarity)
         {
             case Rarity.Common:
-                _durationTime = 5f;
+                _durationTime = 5f;             // Rarity Common ise değerleri buna göre değiştir.
                 break;
 
             case Rarity.Rare:

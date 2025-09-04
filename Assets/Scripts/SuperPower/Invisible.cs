@@ -8,15 +8,15 @@ public class Invisible : Base_Class
         switch (_rarity)
         {
             case Rarity.Common:               
-                _durationTime = 5f;             
+                _durationTime = 5f;             // Rarity Common ise değerleri buna göre değiştir.
                 break;
 
             case Rarity.Rare:                               
-                _durationTime = 8f;             
+                _durationTime = 7.5f;             
                 break;
 
             case Rarity.Legendary:                  
-                _durationTime = 12f;             
+                _durationTime = 10f;             
                 break;
         }
     }

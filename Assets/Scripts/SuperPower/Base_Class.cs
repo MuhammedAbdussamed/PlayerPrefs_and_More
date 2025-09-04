@@ -9,9 +9,9 @@ public abstract class Base_Class : ScriptableObject
     [Header("Properties")]
     public string _speedPowerName;          // Super Güç ismi
     public float _durationTime;             // Etki süresi
-    public Rarity _rarity;                  // Nadirlik seviyesi
     public float _speedUpValue;             // Karakterin ne kadar hızlanacağı.
-
+    public Rarity _rarity;                  // Nadirlik seviyesi
+    
     public enum Rarity                      // Enum belirli string değerlerini index yardimi ile intager değeri olarak tutar. Böylece biz yazilara bakip kolayca atama vs yapabiliriz.
     {
         Common, Rare, Legendary

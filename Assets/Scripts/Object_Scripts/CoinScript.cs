@@ -14,9 +14,6 @@ public class CoinScript : MonoBehaviour
     [Header("ScriptReferences")]
     private PlayerController _playerScript;
 
-    [Header("Variables")]
-    private bool _isTurning;
-
     void Start()
     {
         _playerScript = PlayerController.Instance;
@@ -36,12 +33,12 @@ public class CoinScript : MonoBehaviour
     {
         if (col.CompareTag("Player") || col.CompareTag("Invisible"))
         {
-            _playerScript._coin++;
-            _audioSource.PlayOneShot(_coinSound);
+            _playerScript._coin++;                                               // Coini bir arttir
+            _audioSource.PlayOneShot(_coinSound);                                // Coin sesi çikart.
 
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.2f);                               // 0.2 saniye bekle
 
-            Destroy(gameObject);
+            Destroy(gameObject);                                                 // Objeyi yok et.
         }
     }
 }

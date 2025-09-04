@@ -8,6 +8,7 @@ TagManager:
   - AI_Bot
   - Wall
   - Invisible
+  - UnInteractableObject
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - Laser
   - Invisible
   - Coin
-  - 
+  - FOV
   - 
   - 
   - 

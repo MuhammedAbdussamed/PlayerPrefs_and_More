@@ -12,14 +12,14 @@ public class Speed_Up : Base_Class
                 _durationTime = 3f;             //
                 break;
 
-            case Rarity.Rare:                   //
-                _speedUpValue = 2.5f;           // Rarity Rare ise değerleri buna göre değiştir.
-                _durationTime = 6f;             //
+            case Rarity.Rare:                   
+                _speedUpValue = 2.5f;           
+                _durationTime = 5f;             
                 break;
 
-            case Rarity.Legendary:              //
-                _speedUpValue = 4f;             // Rarity Legendary ise değerleri buna göre değiştir.
-                _durationTime = 9f;             //
+            case Rarity.Legendary:              
+                _speedUpValue = 4f;             
+                _durationTime = 7f;             
                 break;
         }
     }

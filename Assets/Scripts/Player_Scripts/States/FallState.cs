@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class FallState : IState_Player
 {
-    public void Enter(PlayerController _playerScript){ Debug.Log("FallState'e girildi"); }
+    public void Enter(PlayerController _playerScript){}
 
     /*-------------------*/
 
-    public void Exit(PlayerController _playerScript){ Debug.Log("FallState'den çıkıldı"); }
+    public void Exit(PlayerController _playerScript){}
 
     /*-------------------*/
 
@@ -15,13 +15,13 @@ public class FallState : IState_Player
     {
         Fall(_playerScript);
 
-        if (_playerScript._isGrounded && !_playerScript._isWalking)
+        if (_playerScript._isGrounded && !_playerScript._isWalking)         // Karakter yerde ve yürümüyorsa...
         {
-            _playerScript.ChangeState(_playerScript._idleState);
+            _playerScript.ChangeState(_playerScript._idleState);                // idleState'e geç
         }
-        else if (_playerScript._isGrounded && _playerScript._isWalking)
+        else if (_playerScript._isGrounded && _playerScript._isWalking)     // Karakter yerde ve yürüyorsa...
         {
-            _playerScript.ChangeState(_playerScript._walkState);
+            _playerScript.ChangeState(_playerScript._walkState);                // WalkState'e geç
         }
     }
 

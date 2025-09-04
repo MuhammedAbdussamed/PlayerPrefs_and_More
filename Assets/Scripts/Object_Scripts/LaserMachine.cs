@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class LaserMachine : MonoBehaviour
 {
     [Header("Raycast Layers")]
+    [Tooltip("Layers that the laser can hit")]
     [SerializeField] private LayerMask _raycastLayers;
 
     [Header("Turn Values")]
@@ -31,7 +32,7 @@ public class LaserMachine : MonoBehaviour
 
     void LaserFunction()
     {
-        Vector3 _direction = transform.TransformDirection(Vector3.left);
+        Vector3 _direction = transform.TransformDirection(Vector3.left);    // Sol yönünü belirtip direction değişkenine atadik.
 
         if (Physics.Raycast(transform.position, _direction, out RaycastHit _hit, Mathf.Infinity, _raycastLayers)) // Mevcut pozisyondan sola doğru ışın at. Bilgileri _hit değişkenine yaz. RaycastLayerstan bir layera çarparsa devam et.
         {
@@ -56,13 +57,13 @@ public class LaserMachine : MonoBehaviour
 
         CheckFace();
 
-        while (transform.rotation != Quaternion.Euler(0f, _targetY, 0f))
+        while (transform.rotation != Quaternion.Euler(0f, _targetY, 0f))    // Eğer rotasyon açısı hedef açıya eşit değilse... 
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0f, _targetY, 0f), _turnSpeed * 0.1f);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0f, _targetY, 0f), _turnSpeed * 0.1f);   // Rotasyon açısını yumuşak bir şekilde hedef açıya çevir.
             yield return null; // Her frame güncelle.
         }
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2f);  
 
         _isTurning = false;
     }
@@ -71,11 +72,14 @@ public class LaserMachine : MonoBehaviour
 
     void CheckFace()
     {
-        if (transform.rotation == Quaternion.Euler(0f, _turnAngle, 0f))
+        float y = transform.eulerAngles.y;                              // Y ekseninde dönnüş yapacağimiz için y açisini aliyoruz.
+
+        /* İstenilen dönüş açısı ile şimdi ki açı arasinda ki fark 0.1f den az olursa sağa bakiyor değişkenini true çevir*/
+        if (Mathf.Abs(Mathf.DeltaAngle(y, _turnAngle)) < 0.1f)          // DeltaAngle fonksiyonu açıları karşilaştirmak için idealdir. Sonrasinda mutlak değer için Abs fonksiyonunu kullaniriz.
         {
             _isFacingRight = true;
         }
-        else if (transform.rotation == Quaternion.Euler(0f, -_turnAngle, 0f))
+        else if (Mathf.Abs(Mathf.DeltaAngle(y, -_turnAngle)) < 0.1f)
         {
             _isFacingRight = false;
         }

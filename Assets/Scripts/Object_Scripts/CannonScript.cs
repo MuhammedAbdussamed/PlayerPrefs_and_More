@@ -8,12 +8,12 @@ public class CannonScript : MonoBehaviour
 
     [Header("Variables")]
     [SerializeField] private float _bulletSpeed;
+    private Rigidbody _rb;
     private Vector3 _distance;
-    private float _posY;
 
     void Start()
     {
-        _posY = _bullet.position.y;
+        _rb = _bullet.GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -25,11 +25,10 @@ public class CannonScript : MonoBehaviour
     {
         _distance = (_fireTarget.position - transform.position).normalized; // İki position değerini çıkararak normalized edersek yön buluruz. (Top atar'dan atılacak hedefe doğru yön)
 
-        _bullet.position += new Vector3(_distance.x, 0f, _distance.z) * _bulletSpeed * Time.deltaTime; // Merminin pozisyonunu güncelle.
+        _rb.linearVelocity = Vector3.zero;                                  // Update içerisinde uygulanan hızın üst üste binmemesi için her frame sıfırlıyoruz.
 
-        Vector3 newPosition = _bullet.position;     //
-        newPosition.y = _posY;                      // Merminin y ekseninde hareket etmesini sağla.
-        _bullet.position = newPosition;             // 
+        _rb.AddForce(_distance * _bulletSpeed, ForceMode.Impulse);          // Mermiye belirlenen doğrultuda ANINDA kuvvet uygula.
+
     }
 
 }

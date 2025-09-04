@@ -181,9 +181,9 @@ GameObject:
   - component: {fileID: 5718579041180468012}
   - component: {fileID: 5786787399121662588}
   - component: {fileID: 4306051577895230587}
-  m_Layer: 12
+  m_Layer: 19
   m_Name: FOV
-  m_TagString: Untagged
+  m_TagString: UnInteractableObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -222,8 +222,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4, y: 1, z: 1.4}
-  m_Center: {x: -0.061452866, y: 0, z: 0.1876719}
+  m_Size: {x: 6, y: 1.5, z: 2}
+  m_Center: {x: 0, y: 0, z: 0.4}
 --- !u!114 &4306051577895230587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,7 +433,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 5
+  m_Speed: 4.25
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

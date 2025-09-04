@@ -8,7 +8,7 @@ public class Super_Power_Object : MonoBehaviour
     private PlayerController _playerScript;                 // Karakterimiz ile çarpışınca değer alacak olan boş bir değişken.
 
     [Header("Object Properties")]
-    [SerializeField] private float _coolDown;
+    [SerializeField] private float _coolDown;               // Objenin sıfırlanma süresi.
 
     [Header("Variables")]
     [HideInInspector] public float _superPowerEndTime;      // UI elementine iletmek için duration değerini tutacak ( saniye )
@@ -19,7 +19,7 @@ public class Super_Power_Object : MonoBehaviour
     [SerializeField] public Base_Class _destroyPower;       // Süper güç referansı.
 
     [Header("Bools")]
-    [HideInInspector] public bool _usedOnce;            // Süper gücü 1 kere kullandiğimizdan emin olmak için bool değişkeni
+    [HideInInspector] private bool _usedOnce;            // Süper gücü 1 kere kullandiğimizdan emin olmak için bool değişkeni
     [HideInInspector] public bool _useSpeedUp;          // Speed Up değişkenini kullanmak istersek kullanacağimiz bool.
     [HideInInspector] public bool _useInvisible;        // Invisible değişkenini kullanmak istersek kullanacağimiz bool.
     [HideInInspector] public bool _useDestroy;          // Destroy değişkenini kullanmak istersek kullanacağimiz bool.
@@ -27,7 +27,6 @@ public class Super_Power_Object : MonoBehaviour
     void Update()
     {
         _superPowerEndTime -= Time.deltaTime;
-        Debug.Log(_superPowerEndTime);
     }
 
     void OnTriggerEnter(Collider col)
@@ -38,11 +37,11 @@ public class Super_Power_Object : MonoBehaviour
 
             _playerScript = col.GetComponent<PlayerController>();
 
-            RandomPowerChase();
+            RandomPowerChase();                 // Rasgele bir özel güç seçen fonksiyon.
 
-            UseSuperPower();
+            UseSuperPower();                    // Seçilen özel gücü kullanan fonksiyon.
 
-            StartCoroutine(ResetObject());
+            StartCoroutine(ResetObject());      // Objenin cooldown'u. Resetlenince tekrar özel güç kullanılabilir.
         }
     }
 
@@ -63,13 +62,13 @@ public class Super_Power_Object : MonoBehaviour
     {
         _playerScript._speed += _speedPower._speedUpValue;          // Artık nadirlik seçildi ve değişkenler ona göre ayarlandi. Hız değişkenini uygula.
 
-        _playerScript._speedEffect.gameObject.SetActive(true);
+        _playerScript._speedEffect.gameObject.SetActive(true);      // Speed Up efektini aç.
 
         yield return new WaitForSeconds(_speedPower._durationTime); // Süper gücün etki süresi kadar bekle
 
         _playerScript._speed -= _speedPower._speedUpValue;          // Hız değişkenini geri çek . ( Etkiyi bitir )
 
-        _playerScript._speedEffect.gameObject.SetActive(false);
+        _playerScript._speedEffect.gameObject.SetActive(false);     // SpeedUp efektini kapat.
 
         _useSpeedUp = false;
     }
@@ -91,15 +90,15 @@ public class Super_Power_Object : MonoBehaviour
 
     IEnumerator TerminatorMode()
     {
-        _playerScript._isDestroying = true;
+        _playerScript._isDestroying = true;                                 // Destroy özelliğini aç
 
-        _playerScript._destroyEffect.gameObject.SetActive(true);
+        _playerScript._destroyEffect.gameObject.SetActive(true);            // Destroy efektini aç
 
-        yield return new WaitForSeconds(_destroyPower._durationTime);
+        yield return new WaitForSeconds(_destroyPower._durationTime);       // Etki süresi kadar bekle
 
-        _playerScript._isDestroying = false;
+        _playerScript._isDestroying = false;                                // Destroy özelliğini kapat
 
-        _playerScript._destroyEffect.gameObject.SetActive(false);
+        _playerScript._destroyEffect.gameObject.SetActive(false);           // Destroy efektini kapat
 
         _useDestroy = false;
     }
@@ -140,8 +139,8 @@ public class Super_Power_Object : MonoBehaviour
     /*--------------------------------------------------------*/
 
     IEnumerator ResetObject()
-    {
-        yield return new WaitForSeconds(_coolDown);
+    {   
+        yield return new WaitForSeconds(_coolDown);             
         _usedOnce = false;
     }
     

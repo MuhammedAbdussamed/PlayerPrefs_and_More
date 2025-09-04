@@ -35,7 +35,7 @@ public class Thorns : MonoBehaviour
         
         if (col.CompareTag("Player") || col.CompareTag("Invisible"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);       // Sahneyi tekrar yükle.
         }
     }
 
@@ -71,9 +71,9 @@ public class Thorns : MonoBehaviour
     {
         AI_Controller _aiScript;        // Boş bir değişken. Bot bu objeye çarparsa botta ki scripti alacak.
 
-        _aiScript = col.GetComponent<AI_Controller>();
+        _aiScript = col.GetComponent<AI_Controller>();  // AI_Botta ki AI_Controller scriptini al ve bu değişkene ata.
         
-        _aiScript._isDeath = true;
+        _aiScript._isDeath = true;      // Scriptte ki öldü mü değişkenini true çevir.
     }
     
     #endregion

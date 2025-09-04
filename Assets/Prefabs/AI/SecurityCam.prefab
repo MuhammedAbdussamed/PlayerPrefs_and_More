@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2236190580002080369}
   - component: {fileID: 5338474234699721578}
   - component: {fileID: 7661209307368778931}
-  - component: {fileID: 5322479179352825271}
   - component: {fileID: 5998238228095090499}
   m_Layer: 15
   m_Name: SecurityCam
@@ -113,27 +112,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &5322479179352825271
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2010086272181222319}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 12, y: 5, z: 24}
-  m_Center: {x: 0.3467814, y: -1.354982, z: 11.8881}
 --- !u!114 &5998238228095090499
 MonoBehaviour:
   m_ObjectHideFlags: 0

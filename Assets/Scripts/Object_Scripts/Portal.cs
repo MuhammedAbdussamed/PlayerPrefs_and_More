@@ -21,7 +21,7 @@ public class Portal : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.CompareTag("Player") || col.CompareTag("Invisible"))                   // Player tag'li bir obje collidera girerse devam et...
+        if (col.CompareTag("Player") || col.CompareTag("Invisible"))                   // Player ya da Invisible tag'li bir obje collidera girerse devam et...
         {
             _textInteract.gameObject.SetActive(true);                                  // Etkileşim yazisini aktif et. 
             _isPlayerIn = true;                                                        // Karakter içerde mi değişkenini true çevir.
@@ -30,7 +30,7 @@ public class Portal : MonoBehaviour
 
     void OnTriggerExit(Collider col)                    
     {
-        if (col.CompareTag("Player") || col.CompareTag("Invisible"))                   // Player tag'li bir obje colliderdan çıkarsa devam et...
+        if (col.CompareTag("Player") || col.CompareTag("Invisible"))                   // Player ya da Invisible tag'li bir obje colliderdan çıkarsa devam et...
         {
             _textInteract.gameObject.SetActive(false);                                 // Etkileşim yazısını deaktif et.
             _isPlayerIn = false;                                                       // Karakter içerde mi değişkenini false çevir

@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
 using Unity.Cinemachine;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,16 +9,17 @@ public class PlayerController : MonoBehaviour
     [Header("PlayerProperties")]
     public float _speed;
     public float _fallSpeed;
-    public float _coin;
+    public float _coin; 
     public float _necesserrayCoin;                                      // Bölümü geçmek için gerekli olan coin sayısı.
-    public float _mouseSensivity;                                       // Mouse hassasiyeti.
-    
-    [Header("InputReferences")] 
-    [SerializeField] private InputActionAsset _inputs;
+
+    [Header("InputReferences")]
+    public InputActionAsset _inputs;                                    // Inputlari alacağimiz değişken
 
     [Header("Materials")]
     [Tooltip("Character's common material")]
-    [SerializeField] private Material _playerMaterial;
+    private Material[] _playerMaterial;
+    [SerializeField] Material _material0;
+    [SerializeField] Material _material1;
 
     [Tooltip("Character's color/material when DESTROY power is active.")]
     [SerializeField] private Material _terminatorMaterial;
@@ -32,30 +28,29 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Material _invisibleMaterial;
 
     // Components
-    [SerializeField] private CinemachineFollow _playerCamera;
+    private MeshRenderer _playerMeshRenderer;
+    public CinemachineFollow _playerCamera;
     [HideInInspector] public Rigidbody _rb;
-    [HideInInspector] private Transform _noise;
-    [HideInInspector] private MeshRenderer _playerMeshRenderer;
-
+    [HideInInspector] public Transform _turner;
+    
     // Effects References
     [HideInInspector] public ParticleSystem _speedEffect;
     [HideInInspector] public ParticleSystem _destroyEffect;
-    
+    private Material[] mats;
+
     // State Bools
     [HideInInspector] public bool _isGrounded;
     [HideInInspector] public bool _isWalking;
     [HideInInspector] public bool _isFalling;
     [HideInInspector] public bool _isDestroying;
     [HideInInspector] public bool _isInvisible;
-    
+
     // Movement Variable
     [HideInInspector] public Vector2 _moveDirection;
-    [HideInInspector] public Vector3 _turnDirection;
-    [HideInInspector] public bool _cameraInputRight;
-    [HideInInspector] public bool _cameraInputLeft;
+
+    // Movement Bools
     [HideInInspector] public bool _interactionInput;
     [HideInInspector] public bool _isLooking;
-    [HideInInspector] private List<int> _invisibleCollisionLayer;       // Görünmezlik modunda karakterin hangi katmanlar ile çarpışmayacağı.
 
     // States
     [HideInInspector] public IState_Player _idleState;
@@ -81,24 +76,23 @@ public class PlayerController : MonoBehaviour
         _currentState = _idleState;
 
         /* Components Assign */
-
         _rb = GetComponent<Rigidbody>();
 
         _playerMeshRenderer = transform.Find("Player").GetComponent<MeshRenderer>();
 
-        _noise = transform.Find("Noise").GetComponent<Transform>();
+        _turner = transform.Find("Turner").GetComponent<Transform>();
 
         /* Effects Assign */
+        _speedEffect = transform.Find("SpeedEffect").GetComponent<ParticleSystem>();        // Speed up efekti
+        _destroyEffect = transform.Find("DestroyEffect").GetComponent<ParticleSystem>();    // Destroy efekti
 
-        _speedEffect = transform.Find("SpeedEffect").GetComponent<ParticleSystem>();
-        _destroyEffect = transform.Find("DestroyEffect").GetComponent<ParticleSystem>();
-
-
-    }   
+        /* Array Assign */
+        mats = _playerMeshRenderer.materials;
+        _playerMaterial = new Material[] { _material0, _material1 };        // Materiyal ekleneceği zaman buraya yazmak yeterli olur. <-----------
+    }
 
     private void Start()
     {
-        SetNecesserrayCoin();
         _inputs.Enable();
     }
 
@@ -109,91 +103,17 @@ public class PlayerController : MonoBehaviour
         TransitionFallState();
 
         /* Inputs */
-        _moveDirection = _inputs.FindActionMap("Movement").FindAction("Move").ReadValue<Vector2>();      // Inputtan gelen Vector2 değerini _moveDirection değişkenine ata.
-        _interactionInput = _inputs.FindActionMap("Interaction").FindAction("Interact").triggered;       // Inputtan gelen girdiyi _interactionInputı true çevirmek için kullan.
-        _cameraInputRight = _inputs.FindActionMap("Look").FindAction("LookRight").triggered;             // Inputtan gelen Vector2 değerini _cameraInput değişkenine ata.
-        _cameraInputLeft = _inputs.FindActionMap("Look").FindAction("LookLeft").triggered;
+        _moveDirection = _inputs.FindActionMap("Movement").FindAction("Move").ReadValue<Vector2>();     // Inputtan gelen Vector2 değerini _moveDirection değişkenine ata.
+        _interactionInput = _inputs.FindActionMap("Interaction").FindAction("Interact").triggered;      // Inputtan gelen girdiyi _interactionInputı true çevirmek için kullan.
 
         /* Functions */
-        BecomeInvisible();
-        ChangeMaterial();
-        LookTurnRight();
-        LookTurnLeft();
-       
-        _currentState.Update(this);                                                                      // Güncel State'in update'inde ne varsa onu yap.
+        BecomeInvisible();            // Görünmez olma fonksiyonu
+        ChangeMaterial();             // Süper güce göre material (renk) değiştirme fonksiyonu.
+
+        _currentState.Update(this);   // Güncel State'in update'inde ne varsa onu yap.
     }
 
     #region Functions
-
-    void LookTurnRight()
-    {
-        if (_cameraInputRight)
-        {
-            if (_playerCamera.FollowOffset == new Vector3(10f, 10f, 0f))
-            {
-                _playerCamera.FollowOffset = new Vector3(0f, 10f, 10f);
-                _turnDirection = new Vector3(0f, -180f, 0f);
-                _noise.transform.rotation = Quaternion.Euler(0f, -180f, 0f);
-            }
-
-            else if (_playerCamera.FollowOffset == new Vector3(0f, 10f, 10f))
-            {
-                _playerCamera.FollowOffset = new Vector3(-10f, 10f, 0f);
-                _turnDirection = new Vector3(0f, -270f, 0f);
-                _noise.transform.rotation = Quaternion.Euler(0f, -270f, 0f);
-            }
-
-            else if (_playerCamera.FollowOffset == new Vector3(-10f, 10f, 0f))
-            {
-                _playerCamera.FollowOffset = new Vector3(0f, 10f, -10f);
-                _turnDirection = new Vector3(0f, 0f, 0f);
-                _noise.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-            }
-
-            else if (_playerCamera.FollowOffset == new Vector3(0f, 10f, -10f))
-            {
-                _playerCamera.FollowOffset = new Vector3(10f, 10f, 0f);
-                _turnDirection = new Vector3(0f, -90f, 0f);
-                _noise.transform.rotation = Quaternion.Euler(0f, -90f, 0f);
-            }
-            transform.rotation = Quaternion.Euler(_turnDirection);
-        }
-    }
-
-    void LookTurnLeft()
-    {
-        if (_cameraInputLeft)
-        {
-            if (_playerCamera.FollowOffset == new Vector3(10f, 10f, 0f))
-            {
-                _playerCamera.FollowOffset = new Vector3(0f, 10f, -10f);
-                _turnDirection = new Vector3(0f, 0f, 0f);
-                _noise.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-            }
-
-            else if (_playerCamera.FollowOffset == new Vector3(0f, 10f, -10f))
-            {
-                _playerCamera.FollowOffset = new Vector3(-10f, 10f, 0f);
-                _turnDirection = new Vector3(0f, 90f, 0f);
-                _noise.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
-            }
-
-            else if (_playerCamera.FollowOffset == new Vector3(-10f, 10f, 0f))
-            {
-                _playerCamera.FollowOffset = new Vector3(0f, 10f, 10f);
-                _turnDirection = new Vector3(0f, 180f, 0f);
-                _noise.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-            }
-
-            else if (_playerCamera.FollowOffset == new Vector3(0f, 10f, 10f))
-            {
-                _playerCamera.FollowOffset = new Vector3(10f, 10f, 0f);
-                _turnDirection = new Vector3(0f, 270f, 0f);
-                _noise.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
-            }
-            transform.rotation = Quaternion.Euler(_turnDirection);
-        }
-    }
 
     /*--------------------------------------------*/
 
@@ -225,44 +145,40 @@ public class PlayerController : MonoBehaviour
 
     void ChangeMaterial()
     {
-        if (_isDestroying)
+
+        if (_isDestroying)                                         // Destroy özel gücü açıksa...
         {
-            _playerMeshRenderer.material = _terminatorMaterial;
+            ChangeMaterialMiniFunction(_terminatorMaterial);            // Destroy materiali kuşan.
         }
-        else if (_isInvisible)
+
+        else if (_isInvisible)                                     // Görünmezlik özel gücü açıksa...
         {
-            _playerMeshRenderer.material = _invisibleMaterial;
+            ChangeMaterialMiniFunction(_invisibleMaterial);             // Görünmezlik materiali kuşan.
         }
-        else
+
+        else                                                       // Hiçbir süper güç açık değilse ya da speed up özel gücü açıksa...
         {
-            _playerMeshRenderer.material = _playerMaterial;
+            for (int i = 0; i < _playerMaterial.Length; i++)
+            {
+                mats[i] = _playerMaterial[i];                       // Karakterin normal materyalini bütün materyallere kuşan.
+            }
+            _playerMeshRenderer.materials = mats;                   // Sonra da atamasini yap
         }
     }
 
     /*--------------------------------------------*/
-    void SetNecesserrayCoin()
+
+    void ChangeMaterialMiniFunction(Material material)
     {
-        if (SceneManager.GetActiveScene().buildIndex == 0)
+        for (int i = 0; i < mats.Length; i++)
         {
-            _necesserrayCoin = 4;
+            mats[i] = material;
         }
-        else if (SceneManager.GetActiveScene().buildIndex == 1)
-        {
-            _necesserrayCoin = 10;
-        }
-        else if (SceneManager.GetActiveScene().buildIndex == 2)
-        {
-            _necesserrayCoin = 15;
-        }
-        else if (SceneManager.GetActiveScene().buildIndex == 3)
-        {
-            _necesserrayCoin = 20;
-        }
+        _playerMeshRenderer.materials = mats;
     }
 
     #endregion
 
-    /*--------------------------------------------*/
 
     #region Transition
 
@@ -300,6 +216,4 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
-
-
 }
