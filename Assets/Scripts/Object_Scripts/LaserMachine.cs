@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,22 +11,43 @@ public class LaserMachine : MonoBehaviour
     [SerializeField] private LayerMask _raycastLayers;
 
     [Header("Turn Values")]
-    [SerializeField] private float _turnAngle;
+    [SerializeField] private float target1;
+    [SerializeField] private float target2;
     [SerializeField] private float _turnSpeed;
     private float _targetY;
+
+    [Header("Move Variables")]
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private Transform point1;
+    [SerializeField] private Transform point2;
+    private bool canMove;
+    private bool _in1;                                                          // Lazer makinesinin point1 noktasinda olup olmadiğini kontrol eden bool.
 
     [Header("Turn Bool")]
     private bool _isFacingRight;
     private bool _isTurning;
 
+    void Start()
+    {
+        transform.rotation = Quaternion.Euler(new Vector3(0f, target1, 0f));
+        transform.position = point1.position;
+    }
+
     void Update()
     {
+        /* Turn Functions */
         LaserFunction();
 
         if (!_isTurning)
         {
             StartCoroutine(Turn());
         }
+
+        /* Move Functions */
+        CheckPosition();
+        Move();
+
+        if(moveSpeed > 0){ canMove = true; }
     }
 
     #region Function
@@ -63,7 +85,7 @@ public class LaserMachine : MonoBehaviour
             yield return null; // Her frame güncelle.
         }
 
-        yield return new WaitForSeconds(2f);  
+        yield return new WaitForSeconds(2f);
 
         _isTurning = false;
     }
@@ -75,18 +97,50 @@ public class LaserMachine : MonoBehaviour
         float y = transform.eulerAngles.y;                              // Y ekseninde dönnüş yapacağimiz için y açisini aliyoruz.
 
         /* İstenilen dönüş açısı ile şimdi ki açı arasinda ki fark 0.1f den az olursa sağa bakiyor değişkenini true çevir*/
-        if (Mathf.Abs(Mathf.DeltaAngle(y, _turnAngle)) < 0.1f)          // DeltaAngle fonksiyonu açıları karşilaştirmak için idealdir. Sonrasinda mutlak değer için Abs fonksiyonunu kullaniriz.
+        if (Mathf.Abs(Mathf.DeltaAngle(y, target1)) < 0.1f)  // DeltaAngle fonksiyonu açıları karşilaştirmak için idealdir. Sonrasinda mutlak değer için Abs fonksiyonunu kullaniriz.
         {
             _isFacingRight = true;
         }
-        else if (Mathf.Abs(Mathf.DeltaAngle(y, -_turnAngle)) < 0.1f)
+        else if (Mathf.Abs(Mathf.DeltaAngle(y, target2)) < 0.1f)
         {
             _isFacingRight = false;
         }
 
-        _targetY = _isFacingRight ? -_turnAngle : _turnAngle;
-    }    
-    
+        _targetY = _isFacingRight ? target2 : target1;
+    }
+
+    /*--------------------------------------------------------------------------*/
+
+    void Move()
+    {
+        if (canMove)
+        {
+            if (_in1)   // Değişken true ise bu lazer makinesinin point1 noktasinda olduğunu gösterir.
+            {
+                transform.position = Vector3.MoveTowards(transform.position, point2.position, moveSpeed * 0.01f);   // Bu yüzden point2 noktasina ilerle
+            }
+            else        // Değişken false ise bu sefer point2 noktasindadir.
+            {
+                transform.position = Vector3.MoveTowards(transform.position, point1.position, moveSpeed * 0.01f);   // O zaman point1 noktasina ilerle.
+            }
+        }
+    }
+
+    /*--------------------------------------------------------------------------*/
+
+    void CheckPosition()
+    {
+        if (Vector3.Distance(transform.position, point1.position) < 0.1f)               // Point1'ye 0.1f'den yakinsa...
+        {
+            _in1 = true;                                                                // Değişkeni true çevir.
+        }
+
+        else if (Vector3.Distance(transform.position, point2.position) < 0.1f)          // Point2'ye 0.1f'den yakinsa...
+        {
+            _in1 = false;                                                               // Değişkeni false çevir.
+        }
+    }
+
     #endregion
 
 }

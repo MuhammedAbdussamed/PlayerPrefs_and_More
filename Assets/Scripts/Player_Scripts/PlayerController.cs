@@ -16,10 +16,10 @@ public class PlayerController : MonoBehaviour
     public InputActionAsset _inputs;                                    // Inputlari alacağimiz değişken
 
     [Header("Materials")]
-    [Tooltip("Character's common material")]
-    private Material[] _playerMaterial;
     [SerializeField] Material _material0;
     [SerializeField] Material _material1;
+    [Tooltip("Character's common materials array")]
+    private Material[] _playerMaterial;
 
     [Tooltip("Character's color/material when DESTROY power is active.")]
     [SerializeField] private Material _terminatorMaterial;
@@ -29,10 +29,12 @@ public class PlayerController : MonoBehaviour
 
     // Components
     private MeshRenderer _playerMeshRenderer;
-    public CinemachineFollow _playerCamera;
     [HideInInspector] public Rigidbody _rb;
+
+    // Objects References
+    public CinemachineFollow _playerCamera;
     [HideInInspector] public Transform _turner;
-    
+
     // Effects References
     [HideInInspector] public ParticleSystem _speedEffect;
     [HideInInspector] public ParticleSystem _destroyEffect;
@@ -47,10 +49,10 @@ public class PlayerController : MonoBehaviour
 
     // Movement Variable
     [HideInInspector] public Vector2 _moveDirection;
-
-    // Movement Bools
     [HideInInspector] public bool _interactionInput;
     [HideInInspector] public bool _isLooking;
+    [HideInInspector] public bool _preciousStuff;
+    [HideInInspector] public bool iskey;
 
     // States
     [HideInInspector] public IState_Player _idleState;
@@ -88,7 +90,7 @@ public class PlayerController : MonoBehaviour
 
         /* Array Assign */
         mats = _playerMeshRenderer.materials;
-        _playerMaterial = new Material[] { _material0, _material1 };        // Materiyal ekleneceği zaman buraya yazmak yeterli olur. <-----------
+        _playerMaterial = new Material[] { _material0, _material1 };        // Karaktere materyal ekleneceği zaman buraya yazmak yeterli olur. <-----------
     }
 
     private void Start()
@@ -104,7 +106,7 @@ public class PlayerController : MonoBehaviour
 
         /* Inputs */
         _moveDirection = _inputs.FindActionMap("Movement").FindAction("Move").ReadValue<Vector2>();     // Inputtan gelen Vector2 değerini _moveDirection değişkenine ata.
-        _interactionInput = _inputs.FindActionMap("Interaction").FindAction("Interact").triggered;      // Inputtan gelen girdiyi _interactionInputı true çevirmek için kullan.
+        _interactionInput = _inputs.FindActionMap("interaction").FindAction("interact").triggered;      // Inputtan gelen girdiyi _interactionInputı true çevirmek için kullan.
 
         /* Functions */
         BecomeInvisible();            // Görünmez olma fonksiyonu
@@ -170,11 +172,11 @@ public class PlayerController : MonoBehaviour
 
     void ChangeMaterialMiniFunction(Material material)
     {
-        for (int i = 0; i < mats.Length; i++)
+        for (int i = 0; i < mats.Length; i++)                       // Material dizisini al...
         {
-            mats[i] = material;
+            mats[i] = material;                                     // Dizide ki bütün elemanlari materiale eşitle
         }
-        _playerMeshRenderer.materials = mats;
+        _playerMeshRenderer.materials = mats;                       // Uygula.
     }
 
     #endregion

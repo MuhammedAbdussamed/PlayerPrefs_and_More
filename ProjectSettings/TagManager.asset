@@ -25,10 +25,10 @@ TagManager:
   - Characters
   - Wall
   - Obstacle
-  - Camera
-  - Laser
+  - HarmObjects
+  - Effects
   - Invisible
-  - Coin
+  - CollectableObjects
   - FOV
   - 
   - 

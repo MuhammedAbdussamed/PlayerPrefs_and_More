@@ -102,11 +102,11 @@
             ]
         },
         {
-            "name": "Interaction",
+            "name": "interaction",
             "id": "35247eb7-b58a-4c34-835a-d61ae7993051",
             "actions": [
                 {
-                    "name": "Interact",
+                    "name": "interact",
                     "type": "Button",
                     "id": "da1aa2cd-e2d8-4f81-a5d6-661ce5b67e90",
                     "expectedControlType": "",
@@ -123,7 +123,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Interact",
+                    "action": "interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

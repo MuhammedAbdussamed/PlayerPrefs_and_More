@@ -1,23 +1,27 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class CameraScript : MonoBehaviour
 {
-    [Header("Turn Angle")]
-    [SerializeField] private float _turnAngle;
+    [Header("Camera Properties")]
+    [SerializeField] private float target1;
+    [SerializeField] private float target2;
+    [SerializeField] private float TurnSpeed;
     private float _targetY;
 
-    [Header("Bools")]
+    // Bools
     private bool _isFacingRight;
     private bool _isTurning;
 
     [Tooltip("Raycast'in çarpabileceği katmanlar")]
     public LayerMask _raycastLayers;
 
-    [Header("References")]
-    private AI_Controller[] _moreBotAI;         // AI_Controller Script dizisi. 
-    public Transform _playerTransform;
+    // References
+    private AI_Controller[] _moreBotAI;         // AI_Controller Script dizisi.
+    private PlayerController playerScript;      // PlayerController script referansi 
+    private Transform _playerTransform;
 
     [Header("UnityEvents")]
     public UnityEvent OnPlayerDetected;         // Bu tarz eventler inspectordan tetiklenebilir.
@@ -25,6 +29,10 @@ public class CameraScript : MonoBehaviour
     private void Start()
     {
         _moreBotAI = FindObjectsByType<AI_Controller>(FindObjectsSortMode.None);    // Sahnede ki bütün AI_Controller scriptlerini topla . Siralama modu da kapalı olsun böyle daha hizli.
+        playerScript = PlayerController.Instance;
+        _playerTransform = playerScript.transform;
+
+        transform.rotation = Quaternion.Euler(20f, target1, 0f);
     }
 
     public void Update()
@@ -37,12 +45,17 @@ public class CameraScript : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        PlayerDetect(col, true);
+        PlayerDetect(col);
+
+        if (col.CompareTag("Player"))
+        {
+            Debug.Log("Burada");
+        }
     }
 
     void OnTriggerExit(Collider col)
     {
-        PlayerDetect(col, true);
+        PlayerDetect(col);
     }
 
     #region Functions
@@ -55,7 +68,7 @@ public class CameraScript : MonoBehaviour
         /*Şimdi ki ve hedef açi arasinda ki fark 0.1 den küçük olana dek bu döngüyü devam ettir*/
         while (Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.y, _targetY)) > 0.1f)    // Mathf.DeltaAngle iki açi arasinda ki en kisa farki verir. Açilarla çaliştiğimiz için mutlak değer almak istiyoruz bu yüzden mathf.abs kullaniriz.
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(20f, _targetY, 0f), 20f * Time.deltaTime);    // RotateTowards ile yavaş yavaş döndürürüz. İki tane açı ve bir tane hız parametresi alır.
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(20f, _targetY, 0f), 20f * Time.deltaTime * TurnSpeed);    // RotateTowards ile yavaş yavaş döndürürüz. İki tane açı ve bir tane hız parametresi alır.
             yield return null; // her frame güncelle
         }
 
@@ -67,29 +80,30 @@ public class CameraScript : MonoBehaviour
 
     void CheckTurnDirection()
     {
-        if (transform.rotation == Quaternion.Euler(20f, _turnAngle, 0f))        // Eğer kamera açısı istenen açıya gelirse devam et...
+        float y = transform.eulerAngles.y;
+
+        if (Math.Abs(Mathf.DeltaAngle(y, target1)) < 0.05f)           // Eğer kamera açısı istenen açıya gelirse devam et...
         {
-            _isFacingRight = true;                                              // Kamera sağa bakiyor değişkenini true çevir.
+            _isFacingRight = true;                                    // Kamera sağa bakiyor değişkenini true çevir.
         }
-        else if (transform.rotation == Quaternion.Euler(20f, -_turnAngle, 0f))  // Eğer kamera açısı istenen açıya gelirse devam et...
+        else if (Math.Abs(Mathf.DeltaAngle(y, target2)) < 0.05f)      // Eğer kamera açısı istenen açıya gelirse devam et...
         {
-            _isFacingRight = false;                                             // Kamera sağa bakiyor değişkenini false çevir. ( Sola bakıyor ).
+            _isFacingRight = false;                                   // Kamera sağa bakiyor değişkenini false çevir. ( Sola bakıyor ).
         }   
-        _targetY = _isFacingRight ? -_turnAngle : _turnAngle;                   // Kameranın sağa ya da sola bakmasına göre hedef açıyı belirle.
+        _targetY = _isFacingRight ? target2 : target1;                // Kameranın sağa ya da sola bakmasına göre hedef açıyı belirle.
     }
 
     /*---------------------------------------------------------*/
 
-    void PlayerDetect(Collider col, bool enterExit)
+    void PlayerDetect(Collider col)
     {
-        if (col.CompareTag("Player"))                                                                   // Player tag'li bir obje collidera girerse devam et...
+        if (col.CompareTag("Player"))                                                                 // Player tag'li bir obje collidera girerse devam et...
         {
-            Vector3 _cameraDirection = (_playerTransform.position - transform.position).normalized;     // Cameradan karaktere doğru bir vector3 çiz.
+            Vector3 _cameraDirection = (col.transform.position - transform.position).normalized;        // Cameradan karaktere doğru bir vector3 çiz.
             RaycastHit _hit;
-
-            if (Physics.Raycast(transform.position, _cameraDirection, out _hit, 20f , _raycastLayers))  // Kamera pozisonundan çizdiğimiz vector3 doğrultusunda bir raycast at. Eğer çarparsa devam et...
-            {
-                Debug.DrawRay(transform.position, _cameraDirection * 20f, Color.green);                 // Raycast'i yeşil renkte görselleştir.
+            
+            if (Physics.Raycast(transform.position, _cameraDirection, out _hit, 20f, _raycastLayers))   // Kamera pozisonundan çizdiğimiz vector3 doğrultusunda bir raycast at. Eğer çarparsa devam et...
+            { 
                 if (_hit.collider.CompareTag("Player"))                                                 // Eğer raycast Player tag'li bir objeye çarparsa 
                 {
                     OnPlayerDetected?.Invoke();                                                         // Hiç abonesi olmasa bile eventi çağir.
