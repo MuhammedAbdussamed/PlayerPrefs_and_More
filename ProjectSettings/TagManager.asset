@@ -9,6 +9,7 @@ TagManager:
   - Wall
   - Invisible
   - UnInteractableObject
+  - HalfDead
   layers:
   - Default
   - TransparentFX

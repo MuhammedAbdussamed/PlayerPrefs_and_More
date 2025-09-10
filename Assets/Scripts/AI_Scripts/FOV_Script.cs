@@ -44,12 +44,12 @@ public class FOV_Script : MonoBehaviour
     {
         if (!_aiData._isPlayerIn) { return; }           // Eğer karakter collider içerisinde değilse döngüyü kır.
 
-        Vector3 _direction = (_aiData._playerScript.transform.position - _aiData._transform.position).normalized;           // Bot'un pozisyonunda karakterin pozisyonuna bir vector3 çiz.
+        Vector3 _direction = (_aiData._playerScript.transform.position - _aiData.transform.position).normalized;           // Bot'un pozisyonunda karakterin pozisyonuna bir vector3 çiz.
 
-        if (Physics.Raycast(_aiData._transform.position, _direction, out RaycastHit _hit, _viewDistance, _raycastLayers))   // Vector3 doğrultusunda , maxDistance uzunluğunda bir ışın gönder ve gelen bilgiyi hit değişkenine yaz. 
+        if (Physics.Raycast(_aiData.transform.position, _direction, out RaycastHit _hit, _viewDistance, _raycastLayers))   // Vector3 doğrultusunda , maxDistance uzunluğunda bir ışın gönder ve gelen bilgiyi hit değişkenine yaz. 
         {                                                                                                                   // Eğer raycastLayerstan bir katmana çarparsa devam et...
 
-            Debug.DrawRay(_aiData._transform.position, _direction * _viewDistance, Color.green);                            // Raycast'i yeşil renkte görselleştir.
+            Debug.DrawRay(_aiData.transform.position, _direction * _viewDistance, Color.green);                            // Raycast'i yeşil renkte görselleştir.
 
             if (_hit.collider.CompareTag("Player"))                                                                             // Eğer çarptığı objenin tagi player ise devam et...
             {

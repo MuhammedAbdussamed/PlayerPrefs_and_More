@@ -484,16 +484,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 718f8631b9326844f8ecff4e49c358f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _respawnTime: 0
+  _respawnTime: 10
+  CornerWaitTime: 2
   _botAI: {fileID: 4741124303092731495}
-  _transform: {fileID: 614251357242925734}
   _botNoise: {fileID: 4083440786348939718}
   _pointTransforms:
   - {fileID: 517457264817683375}
   - {fileID: 5887790869891891523}
   - {fileID: 1674161471390589057}
   - {fileID: 8250080826526564267}
-  _lookAtDelay: {x: 0, y: 0.035, z: 0}
+  _lookAtDelay: {x: 0, y: 0.1, z: 0}
   _playerScript: {fileID: 0}
   _distances:
   - 0
@@ -505,6 +505,7 @@ MonoBehaviour:
   _isPlayerIn: 0
   _isFollowing: 0
   _isDeath: 0
+  isChasingCorner: 0
 --- !u!1 &8784862490738906598
 GameObject:
   m_ObjectHideFlags: 0

@@ -55,6 +55,7 @@ public class Door_Script : MonoBehaviour
         {
             if (!playerScript.iskey)    // Eğer anahtari yoksa...
             {
+                interactionText.gameObject.SetActive(false);    // Etkileşim metnini kapat.
                 warningText.gameObject.SetActive(true);         // Anahtar gerekli yazisini çıkar
                 textAnimator.SetTrigger("Showing");             // Animasyonu başlat
                 yield return new WaitForSeconds(2.5f);          // 2.5 saniye bekle

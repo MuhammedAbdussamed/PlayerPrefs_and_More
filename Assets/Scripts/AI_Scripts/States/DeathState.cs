@@ -50,6 +50,6 @@ public class DeathState : IState
 
     void ClampPosition(AI_Controller _aiData)
     {
-        _aiData._transform.position = _aiData._pointTransforms[0].position;     // Botun pozisyonu patrol state'in ilk noktasina alınıyor.
+        _aiData.transform.position = _aiData._pointTransforms[0].position;     // Botun pozisyonu patrol state'in ilk noktasina alınıyor.
     }
 }

@@ -7,15 +7,12 @@ public class AI_Controller : MonoBehaviour
 {
     [Header("Bot Properties")]
     public float _respawnTime;
+    public float CornerWaitTime;
     public NavMeshAgent _botAI;
-    public Transform _transform;
     public GameObject _botNoise;
 
     [Header("Transform References")]
     public Transform[] _pointTransforms = new Transform[4];
-
-    [Header("Variables")]
-    public Vector3 _lookAtDelay;
 
     [Header("Script References")]
     [HideInInspector] public PlayerController _playerScript;
@@ -25,10 +22,12 @@ public class AI_Controller : MonoBehaviour
 
     [Header("Bools")]
     [HideInInspector] public bool[] _pointBools = new bool[4];
+    [HideInInspector] public bool isLookingRight;
     [HideInInspector] public bool _alarmMode;
     [HideInInspector] public bool _isPlayerIn;
     [HideInInspector] public bool _isFollowing;
     [HideInInspector] public bool _isDeath;
+    [HideInInspector] public bool isChasingCorner;
 
     [Header("States")]
     [HideInInspector] public IState _currentState;
@@ -51,13 +50,17 @@ public class AI_Controller : MonoBehaviour
     void Start()
     {
         _playerScript = PlayerController.Instance;
+
+        transform.position = _pointTransforms[0].position;
+
         _currentState.Enter(this);
     }
 
-    void Update()
+    public virtual void Update()
     {
         _currentState.Update(this);             // Güncel State'in update fonksiyonunu yerine getir.
-        StartCoroutine(UpdatePosition());
+
+        StartCoroutine(UpdatePosition());       // Güncel pozisyonu boolarda tutan fonksiyon
     }
 
     void OnCollisionEnter(Collision col)
@@ -76,38 +79,31 @@ public class AI_Controller : MonoBehaviour
 
     /*----------------------------------*/
 
-    IEnumerator UpdatePosition()
+    public virtual IEnumerator UpdatePosition()
     {
+        
         for (int i = 0; i < _distances.Length; i++)
         {
-            _distances[i] = Vector3.Distance(_transform.position, _pointTransforms[i].position);    // Atanan transformların hepsini teker teker dön ve bu objenin pozisyonuna uzaklıklarını _distances dizisine kaydet.
-        }
+            _distances[i] = Vector3.Distance(transform.position, _pointTransforms[i].position);     // Atanan transformların hepsini teker teker dön ve bu objenin pozisyonuna uzaklıklarını _distances dizisine kaydet.
 
-        for (int i = 0; i < _distances.Length; i++)
-        {
-            if (_distances[i] < 0.2f)                                                               // Distance dizisini dönüp uzakliklara bak. Eğer 0.2den yakin olan varsa onun booleanını true çevir.
+            if (_distances[i] < 0.5f)                                                               // Distance dizisini dönüp uzakliklara bak. Eğer 0.2den yakin olan varsa onun booleanını true çevir.
             {
-                if (i == 3)                                                                         // Eğer 3. bool'da true dönerse devam et.
-                {
-                    _pointBools[i] = true;                                                          // 3. bool'u true çevir.
-                    yield return new WaitForSeconds(1f);                                            // 1 saniye bekle.
+                yield return new WaitForSeconds(CornerWaitTime);
 
-                    for (int il = 0; il < _pointBools.Length; il++)                                 // Bütün pointBools değerlerini dön .
-                    {
-                        _pointBools[il] = false;                                                    // Bütün bool değerlerini false çevir.
-                    }
-                }
-                else                                                                                // Eğer bool 3 değilse yani döngü 0 , 1 ya da 2. boolda ise devam et...
-                {
-                    _pointBools[i] = true;                                                          // Bool'u true çevir.
-                }
+                _pointBools[i] = true;
+            }
+            else
+            {
+                yield return new WaitForSeconds(CornerWaitTime);
+
+                _pointBools[i] = false;
             }
         }
     }
 
     /*----------------------------------*/
 
-    void KillPlayer(Collision col)
+    public void KillPlayer(Collision col)
     {
         if (col.collider.CompareTag("Player") && _playerScript._isDestroying)
         {

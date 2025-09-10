@@ -23,6 +23,7 @@ public class Turn_Script : MonoBehaviour
     {
         Turn();
         SetEffectRotation();
+        ClampEffectRotation();
     }
 
     void Turn()
@@ -68,6 +69,12 @@ public class Turn_Script : MonoBehaviour
         Vector3 effectRotation = -transform.forward;                // Bu değişkeni karakterin tersi rotasyonu alacak şekilde ayarla.
 
         _playerScript._speedEffect.transform.rotation = Quaternion.LookRotation(effectRotation,Vector3.up); // Rotasyon verip objenin oraya bakmasini sağlar.
+    }
+
+    void ClampEffectRotation()
+    {
+        Vector3 effectRotation = new Vector3(-90f, 180f, 0f);
+        _playerScript._speedEffect.transform.rotation = Quaternion.Euler(-90f, 180f, 0f);
     }
 
     enum Direction

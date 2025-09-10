@@ -30,7 +30,10 @@ public class LaserMachine : MonoBehaviour
     void Start()
     {
         transform.rotation = Quaternion.Euler(new Vector3(0f, target1, 0f));
-        transform.position = point1.position;
+        if (moveSpeed > 0)
+        {
+            transform.position = point1.position;
+        }
     }
 
     void Update()

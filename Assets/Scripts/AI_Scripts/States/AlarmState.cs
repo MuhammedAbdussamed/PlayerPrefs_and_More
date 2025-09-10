@@ -27,7 +27,7 @@ public class AlarmState : IState
 
     void AlarmMode(AI_Controller _aiData)
     {
-        _aiData._transform.LookAt(_aiData._playerScript.transform.position);        // Karakterin pozisyonuna bak.
+        _aiData.transform.LookAt(_aiData._playerScript.transform.position);        // Karakterin pozisyonuna bak.
         _aiData._botAI.SetDestination(_aiData._playerScript.transform.position);    // Karakterin pozisyonunu hedef olarak belirle.
     }
 

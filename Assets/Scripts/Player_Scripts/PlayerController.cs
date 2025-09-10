@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool _interactionInput;
     [HideInInspector] public bool _isLooking;
     [HideInInspector] public bool _preciousStuff;
-    [HideInInspector] public bool iskey;
+    /* [HideInInspector] */ public bool iskey;
 
     // States
     [HideInInspector] public IState_Player _idleState;
