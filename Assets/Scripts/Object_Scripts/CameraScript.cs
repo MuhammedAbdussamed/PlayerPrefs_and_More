@@ -82,11 +82,11 @@ public class CameraScript : MonoBehaviour
     {
         float y = transform.eulerAngles.y;
 
-        if (Math.Abs(Mathf.DeltaAngle(y, target1)) < 0.05f)           // Eğer kamera açısı istenen açıya gelirse devam et...
+        if (Math.Abs(Mathf.DeltaAngle(y, target1)) < 0.1f)           // Eğer kamera açısı istenen açıya gelirse devam et...
         {
             _isFacingRight = true;                                    // Kamera sağa bakiyor değişkenini true çevir.
         }
-        else if (Math.Abs(Mathf.DeltaAngle(y, target2)) < 0.05f)      // Eğer kamera açısı istenen açıya gelirse devam et...
+        else if (Math.Abs(Mathf.DeltaAngle(y, target2)) < 0.1f)      // Eğer kamera açısı istenen açıya gelirse devam et...
         {
             _isFacingRight = false;                                   // Kamera sağa bakiyor değişkenini false çevir. ( Sola bakıyor ).
         }   

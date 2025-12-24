@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class LaserMachine : MonoBehaviour
 {
+
+    [SerializeField] private PlayerController playerScript;
+
     [Header("Raycast Layers")]
     [Tooltip("Layers that the laser can hit")]
     [SerializeField] private LayerMask _raycastLayers;
@@ -65,7 +68,7 @@ public class LaserMachine : MonoBehaviour
 
             if (_hit.collider.CompareTag("Player") || _hit.collider.CompareTag("Invisible"))                        // Eğer çarpılan objenin tag'i Player ise devam et...
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);                                           // Sahneyi tekrar yükle.
+                playerScript._isDeath = true;                                                                       // Karakteri öldür
             }
         }
         else                                                                                                        // Eğer ışın raycastLayers'tan herhangi bir katmana çarpmassa devam et...

@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Thorns : MonoBehaviour
 {
+    [Header("Scripts")] 
+    [SerializeField] internal PlayerController playerScript;
+
     [Header("Point Transforms")]
     [SerializeField] private Transform[] _points = new Transform[2];
 
@@ -33,10 +36,7 @@ public class Thorns : MonoBehaviour
             KillTheBot(col);
         }
         
-        if (col.CompareTag("Player") || col.CompareTag("Invisible"))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);       // Sahneyi tekrar yükle.
-        }
+        KillPlayer(col);
     }
 
     #region Functions
@@ -52,6 +52,14 @@ public class Thorns : MonoBehaviour
         }
 
         _isMoving = false;                      // _isMoving false çevirelim ki döngü tekrar başlasın.
+    }
+
+    void KillPlayer(Collider col)
+    {
+        if (col.CompareTag("Player") || col.CompareTag("Invisible"))
+        {
+            playerScript._isDeath = true;
+        }
     }
 
     void CheckPosition()

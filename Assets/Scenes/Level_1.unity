@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: aa018c93fc8b7434993e8bcc0946cec3, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -883,6 +883,10 @@ PrefabInstance:
       propertyPath: _speed
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7486255663981948592, guid: 8acadb228fb86934ba235ada69dcfcf3, type: 3}
+      propertyPath: playerScript
+      value: 
+      objectReference: {fileID: 1541828421}
     - target: {fileID: 8953905138651862361, guid: 8acadb228fb86934ba235ada69dcfcf3, type: 3}
       propertyPath: m_Name
       value: Tomruk_And_Point
@@ -1089,6 +1093,10 @@ PrefabInstance:
       propertyPath: _speed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7486255663981948592, guid: 8acadb228fb86934ba235ada69dcfcf3, type: 3}
+      propertyPath: playerScript
+      value: 
+      objectReference: {fileID: 1541828421}
     - target: {fileID: 8953905138651862361, guid: 8acadb228fb86934ba235ada69dcfcf3, type: 3}
       propertyPath: m_Name
       value: Tomruk_And_Point
@@ -2023,6 +2031,10 @@ PrefabInstance:
       propertyPath: _speed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7486255663981948592, guid: 8acadb228fb86934ba235ada69dcfcf3, type: 3}
+      propertyPath: playerScript
+      value: 
+      objectReference: {fileID: 1541828421}
     - target: {fileID: 8953905138651862361, guid: 8acadb228fb86934ba235ada69dcfcf3, type: 3}
       propertyPath: m_Name
       value: Tomruk_And_Point
@@ -2568,6 +2580,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 9133179875328631816, guid: b9e10f99fede039479836d585bb32600, type: 3}
   m_PrefabInstance: {fileID: 4246530409970812748}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &976833164 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5712631875606167496, guid: 5e658995fec4861458558907cf634e1a, type: 3}
+  m_PrefabInstance: {fileID: 2663663369216328979}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &977559485
 GameObject:
@@ -4360,6 +4377,10 @@ PrefabInstance:
       propertyPath: _speed
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7486255663981948592, guid: 8acadb228fb86934ba235ada69dcfcf3, type: 3}
+      propertyPath: playerScript
+      value: 
+      objectReference: {fileID: 1541828421}
     - target: {fileID: 8953905138651862361, guid: 8acadb228fb86934ba235ada69dcfcf3, type: 3}
       propertyPath: m_Name
       value: Tomruk_And_Point
@@ -4587,6 +4608,10 @@ PrefabInstance:
       propertyPath: _textInteract
       value: 
       objectReference: {fileID: 113291251}
+    - target: {fileID: 992528365053638422, guid: 0c9587fde8a2e264ea16e449c2956198, type: 3}
+      propertyPath: _blackAnimator
+      value: 
+      objectReference: {fileID: 976833164}
     - target: {fileID: 3345678185621786626, guid: 0c9587fde8a2e264ea16e449c2956198, type: 3}
       propertyPath: m_Name
       value: Portal
@@ -4795,6 +4820,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2439522146735874853, guid: c319e81400ac09a4ea43f91d886f1bd7, type: 3}
+      propertyPath: _coolDown
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 2550516750601121940, guid: c319e81400ac09a4ea43f91d886f1bd7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 41.5
@@ -4970,6 +4999,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8020997d1a238ac48922e6a363359f08, type: 3}
+--- !u!1001 &7276495954584454859
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7203175365167034474, guid: 13ddcad798c8fb54c9b755f03022f8ed, type: 3}
+      propertyPath: playerScript
+      value: 
+      objectReference: {fileID: 1541828421}
+    - target: {fileID: 8393902439504524286, guid: 13ddcad798c8fb54c9b755f03022f8ed, type: 3}
+      propertyPath: m_Name
+      value: Death_Sound
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206002133878865799, guid: 13ddcad798c8fb54c9b755f03022f8ed, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 42.65195
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206002133878865799, guid: 13ddcad798c8fb54c9b755f03022f8ed, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.3341365
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206002133878865799, guid: 13ddcad798c8fb54c9b755f03022f8ed, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -22.713974
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206002133878865799, guid: 13ddcad798c8fb54c9b755f03022f8ed, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206002133878865799, guid: 13ddcad798c8fb54c9b755f03022f8ed, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206002133878865799, guid: 13ddcad798c8fb54c9b755f03022f8ed, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206002133878865799, guid: 13ddcad798c8fb54c9b755f03022f8ed, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206002133878865799, guid: 13ddcad798c8fb54c9b755f03022f8ed, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206002133878865799, guid: 13ddcad798c8fb54c9b755f03022f8ed, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206002133878865799, guid: 13ddcad798c8fb54c9b755f03022f8ed, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 13ddcad798c8fb54c9b755f03022f8ed, type: 3}
 --- !u!1001 &8303964736386603425
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4986,6 +5076,10 @@ PrefabInstance:
       propertyPath: _bulletSpeed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6732948253653422343, guid: 1f7efa13371d89c4d882ec02c4cce473, type: 3}
+      propertyPath: playerScript
+      value: 
+      objectReference: {fileID: 1541828421}
     - target: {fileID: 8168911980683697962, guid: 1f7efa13371d89c4d882ec02c4cce473, type: 3}
       propertyPath: m_Name
       value: Cannon
@@ -5158,3 +5252,4 @@ SceneRoots:
   - {fileID: 2663663369216328979}
   - {fileID: 1716287986}
   - {fileID: 324410129}
+  - {fileID: 7276495954584454859}

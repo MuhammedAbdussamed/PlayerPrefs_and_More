@@ -27,9 +27,11 @@ public class FollowState : IState
 
     void Follow(AI_Controller _aiData)
     {
-        _aiData._botAI.updateRotation = false;                      // Herhangibir şekilde bota rotasyon verme işini bana birak.
-        _aiData._botAI.SetDestination(_aiData._playerScript.transform.position);    // Karakterin pozisyonunu hedef olarak ayarla.
-        _aiData.transform.LookAt(_aiData._playerScript.transform.position);
+        Vector3 target = _aiData._playerScript.transform.position;  // Karakterin pozisyonunu hedef olarak ayarla.
+        target.y = _aiData.transform.position.y;                    // Y ekseninde hedef atamasi yapma.
+
+        _aiData._botAI.SetDestination(target);                      // Hedefe git
+        _aiData.transform.LookAt(target);                           // Hedefe dön
     }
 
     void PlayerIsMissing(AI_Controller _aiData)

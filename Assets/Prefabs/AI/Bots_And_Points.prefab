@@ -453,7 +453,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8224524081067608969}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 40
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -486,6 +486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _respawnTime: 10
   CornerWaitTime: 2
+  botRb: {fileID: 9068289786913707654}
   _botAI: {fileID: 4741124303092731495}
   _botNoise: {fileID: 4083440786348939718}
   _pointTransforms:
@@ -493,7 +494,6 @@ MonoBehaviour:
   - {fileID: 5887790869891891523}
   - {fileID: 1674161471390589057}
   - {fileID: 8250080826526564267}
-  _lookAtDelay: {x: 0, y: 0.1, z: 0}
   _playerScript: {fileID: 0}
   _distances:
   - 0
@@ -501,6 +501,7 @@ MonoBehaviour:
   - 0
   - 0
   _pointBools: 00000000
+  isLookingRight: 0
   _alarmMode: 0
   _isPlayerIn: 0
   _isFollowing: 0

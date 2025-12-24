@@ -169,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _respawnTime: 8
   CornerWaitTime: 1.5
+  botRb: {fileID: 2069548004623133115}
   _botAI: {fileID: 2353781841572737370}
   _botNoise: {fileID: 6470195679163508475}
   _pointTransforms:
@@ -183,11 +184,17 @@ MonoBehaviour:
   - 0
   - 0
   _pointBools: 00000000
+  isLookingRight: 0
   _alarmMode: 0
   _isPlayerIn: 0
   _isFollowing: 0
   _isDeath: 0
   isChasingCorner: 0
+--- !u!54 &2069548004623133115 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 9068289786913707654, guid: b9e10f99fede039479836d585bb32600, type: 3}
+  m_PrefabInstance: {fileID: 7017043016437563197}
+  m_PrefabAsset: {fileID: 0}
 --- !u!195 &2353781841572737370 stripped
 NavMeshAgent:
   m_CorrespondingSourceObject: {fileID: 4741124303092731495, guid: b9e10f99fede039479836d585bb32600, type: 3}

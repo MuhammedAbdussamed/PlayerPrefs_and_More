@@ -8,6 +8,7 @@ public class AI_Controller : MonoBehaviour
     [Header("Bot Properties")]
     public float _respawnTime;
     public float CornerWaitTime;
+    public Rigidbody botRb;
     public NavMeshAgent _botAI;
     public GameObject _botNoise;
 
@@ -103,7 +104,7 @@ public class AI_Controller : MonoBehaviour
 
     /*----------------------------------*/
 
-    public void KillPlayer(Collision col)
+    void KillPlayer(Collision col)
     {
         if (col.collider.CompareTag("Player") && _playerScript._isDestroying)
         {
@@ -112,7 +113,7 @@ public class AI_Controller : MonoBehaviour
 
         else if (col.collider.CompareTag("Player") && !_playerScript._isDestroying)                 // Eğer Player tag'li bir obje ile çarpışırsa devam et...
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);                       // Sahneyi tekrar yükle.                                 
+            _playerScript._isDeath = true;                                 
         }
     }
 

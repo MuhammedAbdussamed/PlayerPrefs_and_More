@@ -3,11 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class BulletScript : MonoBehaviour
 {
+    [SerializeField] private PlayerController playerScript;
+
     void OnCollisionEnter(Collision col)
     {
         if (col.collider.CompareTag("Player") || col.collider.CompareTag("Invisible"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            playerScript._isDeath = true;
         }
         else if (col.collider.CompareTag("Wall"))
         {

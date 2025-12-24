@@ -1,6 +1,8 @@
+using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -46,6 +48,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool _isFalling;
     [HideInInspector] public bool _isDestroying;
     [HideInInspector] public bool _isInvisible;
+    internal bool _isDeath;
 
     // Movement Variable
     [HideInInspector] public Vector2 _moveDirection;
@@ -111,8 +114,10 @@ public class PlayerController : MonoBehaviour
         /* Functions */
         BecomeInvisible();            // Görünmez olma fonksiyonu
         ChangeMaterial();             // Süper güce göre material (renk) değiştirme fonksiyonu.
+        StartCoroutine(Death());      // Ölüm fonksiyonu
 
         _currentState.Update(this);   // Güncel State'in update'inde ne varsa onu yap.
+        _destroyEffect.transform.rotation = Quaternion.Euler(-90f,180f,0f);
     }
 
     #region Functions
@@ -216,6 +221,21 @@ public class PlayerController : MonoBehaviour
             _isFalling = false;
         }
     }
+
+    /*----------------------------------------------*/
+
+    IEnumerator Death()
+    {
+        if (_isDeath)
+        {
+            _inputs.Disable();
+            _rb.Sleep();
+            yield return new WaitForSeconds(1.75f);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
+
+    /*---------------------------------------------*/
 
     #endregion
 }

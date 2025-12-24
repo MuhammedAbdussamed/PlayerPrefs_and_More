@@ -8,7 +8,7 @@ public class PatrolState : IState
 
     /*-------------------------------------*/
 
-    public void Exit(AI_Controller _aiData) { }
+    public void Exit(AI_Controller _aiData) { ResetPatrol(_aiData); }
 
     /*-------------------------------------*/
 
@@ -41,6 +41,16 @@ public class PatrolState : IState
                 int nextIndex = (i + 1) % _aiData._pointTransforms.Length;
                 _aiData._botAI.SetDestination(_aiData._pointTransforms[nextIndex].position); // Indexe bir ekle ve hedefi o noktaya ayarla. ( bir sonra ki noktaya hareket et. )
             }
+        }
+    }
+
+    /*---------------------------------------*/
+
+    void ResetPatrol(AI_Controller _aiData)
+    {
+        for(int i = 0; i < _aiData._pointBools.Length; i++)
+        {
+            _aiData._pointBools[i] = false;
         }
     }
 }

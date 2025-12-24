@@ -13,9 +13,12 @@ public class UI_Script : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _necesserrayCoinText;
     [SerializeField] private TextMeshProUGUI _coinText;
     [SerializeField] private TextMeshProUGUI _durationText;
+    [SerializeField] private TextMeshProUGUI _deathText;
 
     [Header("Image Reference")]
     [SerializeField] private UI.Image _superPowerImage;
+    [SerializeField] private Animator _blackAnimator;
+    [SerializeField] private UI.Image _deathLine;
 
     [Header("Image List")]
     [SerializeField] private List<Sprite> _superPowerImageList;
@@ -34,6 +37,7 @@ public class UI_Script : MonoBehaviour
         ChangeTextColor();
         SuperPowerImage();
         SuperPowerDuration();
+        OpenDeathScreen();
     }
 
     #region Functions
@@ -94,6 +98,17 @@ public class UI_Script : MonoBehaviour
             /* TextMeshProyu süper gücün etki süresine ayarla */
             _durationText.text = _superObjectScript._superPowerEndTime.ToString("F1");    // F1 virgülden sonra tek bir ondalik sayi olmasini sağlar. (4,9 gibi)
         }
+    }
+
+    void OpenDeathScreen()
+    {
+        if (_playerScript._isDeath)
+        {
+            _deathLine.gameObject.SetActive(true);
+            _deathText.gameObject.SetActive(true);
+        }
+        
+        
     }
 
     #endregion

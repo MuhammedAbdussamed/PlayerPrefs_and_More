@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,6 +11,9 @@ public class Portal : MonoBehaviour
 
     [Header("ScriptReferences")]
     private PlayerController _playerScript;
+
+    [Header("Animator")]
+    [SerializeField] private Animator _blackAnimator;
 
     [Header("Bools")]
     private bool _isPlayerIn;
@@ -39,16 +43,36 @@ public class Portal : MonoBehaviour
 
     void Update()
     {
-        ChangeSceneSaveCoin(8);
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            StartCoroutine(ChangeSceneSaveCoin(0));
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            StartCoroutine(FinishGame());
+        }
+        
     }
 
-    void ChangeSceneSaveCoin(int coinNumber)
+    IEnumerator ChangeSceneSaveCoin(int coinNumber)
     {
         if (_playerScript._coin >= coinNumber && _playerScript._interactionInput && _isPlayerIn) // Coin sayısı yeterince fazlaysa , etkileşim tuşuna basıldıysa ve karakter içerdeyse devam et...
         {
+            _blackAnimator.SetBool("isClosed",true);
+            yield return new WaitForSeconds(1.25f);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);   // Bu sahnenin indexini al ona 1 ekle ve sahneyi yükle.
-            PlayerPrefs.SetFloat("Coins", _playerScript._coin);                     // Oyuncuda bulunan coin sayısını "Coins" başlığı altına kaydet.
-            PlayerPrefs.Save();
+        }
+    }
+
+    /*---------------------------------------------------------------*/
+
+    IEnumerator FinishGame()
+    {
+        if (_playerScript._preciousStuff && _isPlayerIn && _playerScript._interactionInput)
+        {
+            _blackAnimator.SetBool("isClosed",true);
+            yield return new WaitForSeconds(1.5f);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 
